@@ -1,6 +1,6 @@
 ---
 name: goal-skills
-description: Use when the user says 生成一个goal, 针对这个项目设置一个goal, 给这个项目设置一个goal, 为当前项目生成goal, 把这个目标转成goal, or 先别改，先生成goal.
+description: Use when the user says 生成一个goal, 针对这个项目设置一个goal, 给这个项目设置一个goal, 为当前项目生成goal, 把这个目标转成goal, 先别改，先生成goal, generate a goal, set a goal for this project, or convert this into a goal.
 ---
 
 # Goal Skills
@@ -26,6 +26,9 @@ Treat only these as strong trigger phrases:
 - `为当前项目生成goal`
 - `把这个目标转成goal`
 - `先别改，先生成goal`
+- `generate a goal`
+- `set a goal for this project`
+- `convert this into a goal`
 
 ## Minimal Package Shape
 
@@ -35,6 +38,7 @@ Internal references are optional support files:
 
 - `references/goal-judgment-matrix.md`: how to choose goal type across different project states and domains.
 - `references/goal-template.md`: final `/goal` structure and examples.
+- `references/example-walkthrough.md`: worked example from a messy project prompt to final goal.
 
 Load the relevant reference only when the main skill body is not enough.
 

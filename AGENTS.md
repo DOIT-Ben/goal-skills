@@ -26,6 +26,9 @@ Treat these as strong triggers:
 - 为当前项目生成goal
 - 把这个目标转成goal
 - 先别改，先生成goal
+- generate a goal
+- set a goal for this project
+- convert this into a goal
 
 ## Scope
 
@@ -44,7 +47,7 @@ Keep the package lightweight.
 After editing this package, verify discovery with:
 
 ```powershell
-npx --yes skills add "E:\desktop\goal-skills" --list --full-depth
+npx --yes skills add . --list --full-depth
 ```
 
 Expected result: `Found 1 skill`, named `goal-skills`.

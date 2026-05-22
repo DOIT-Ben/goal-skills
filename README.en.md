@@ -58,7 +58,7 @@ For product ideas, `goal-skills` can generate an idea-to-delivery goal and recom
 
 ## Trigger Phrases
 
-The Chinese trigger phrasing is intentionally narrow:
+Trigger phrasing is intentionally narrow in both Chinese and English:
 
 - `生成一个goal`
 - `针对这个项目设置一个goal`
@@ -66,17 +66,22 @@ The Chinese trigger phrasing is intentionally narrow:
 - `为当前项目生成goal`
 - `把这个目标转成goal`
 - `先别改，先生成goal`
+- `generate a goal`
+- `set a goal for this project`
+- `convert this into a goal`
 
 ## Install
 
+Only Codex is verified today; Claude / Claude Code stay experimental.
+
 ```powershell
-npx skills add https://github.com/DOIT-Ben/goal-skills -g -a codex claude-code -y --full-depth
+npx skills add https://github.com/DOIT-Ben/goal-skills -g -a codex -y --full-depth
 ```
 
 For local development from the repository root:
 
 ```powershell
-npx skills add . -g -a codex claude-code -y --full-depth
+npx skills add . -g -a codex -y --full-depth
 ```
 
 ## Typical Use

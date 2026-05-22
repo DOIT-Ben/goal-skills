@@ -1,6 +1,6 @@
 {
   "name": "goal-skills",
-  "version": "1.0.2",
+  "version": "0.2.0",
   "description": "Generate scoped, verifiable Codex /goal prompts from projects, product ideas, and rough targets.",
   "author": {
     "name": "DOIT-Ben"
@@ -33,7 +33,13 @@
     "defaultPrompt": [
       "生成一个goal",
       "针对这个项目设置一个goal",
-      "先别改，先生成goal"
+      "给这个项目设置一个goal",
+      "为当前项目生成goal",
+      "把这个目标转成goal",
+      "先别改，先生成goal",
+      "generate a goal",
+      "set a goal for this project",
+      "convert this into a goal"
     ],
     "brandColor": "#0F766E"
   }
