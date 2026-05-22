@@ -7,12 +7,12 @@ description: Use when the user says 生成一个goal, 针对这个项目设置�
 
 ## Purpose
 
-Use this skill to turn a project, directory, current problem, or rough target into a well-scoped Codex `/goal` prompt.
+Use this skill to turn a project, product idea, directory, current problem, or rough target into a well-scoped Codex `/goal` prompt.
 
 The job is not project management paperwork. The job is judgment:
 
 1. Inspect the real project signals.
-2. Decide what kind of goal the situation actually needs.
+2. Decide what kind of goal the situation actually needs, including idea-to-product goals when the user starts from a concept instead of an existing repo.
 3. Avoid choosing a wrong direction too early.
 4. Produce a goal prompt that is specific, bounded, verifiable, and useful for execution.
 
@@ -85,6 +85,7 @@ Use available signals. Do not require all of them:
 - visible deliverables
 - user-provided target or complaint
 - git status and remote only when version control or publishing is relevant
+- product idea, target user, user problem, desired outcome, or launch expectation when no project exists yet
 
 During diagnosis, do not modify files unless the user explicitly asks for execution.
 
@@ -101,6 +102,7 @@ First classify the current situation:
 - `Hard to change`: output works, but structure blocks future work.
 - `Decision needed`: multiple options require evidence.
 - `Delivery needed`: user needs deploy, export, publish, submit, handoff, or archive.
+- `Product idea`: user has a product concept, feature idea, workflow idea, or market/user problem but no clear build plan yet.
 
 Then choose the goal type:
 
@@ -116,6 +118,7 @@ Then choose the goal type:
 | Repeated manual work | Automate | Need a repeatable script, command, workflow, or batch process |
 | Decision needed | Experiment / Evaluate | Need metrics, comparison, tests, benchmark, or conclusion |
 | Delivery needed | Release / Publish | Need deploy, export, publish, submit, handoff, archive, or checklist |
+| Product idea | Product / Idea To Shipped Product | Need to turn an idea into a practical product slice and route follow-up work through products-skills |
 
 Prefer the goal type that removes the biggest current blocker. For example:
 
@@ -123,6 +126,22 @@ Prefer the goal type that removes the biggest current blocker. For example:
 - If the user wants polish but the intended product is undefined, choose `Research / Spec` or `Discover / Map` first.
 - If the user wants release but there is no verified build/export path, choose `Repair / Restore` or `Release / Publish` with verification as the core.
 - If the user says only "看看这个项目", choose `Discover / Map`.
+- If the user starts from a product idea instead of an existing implementation, choose `Product / Idea To Shipped Product` and recommend `products-skills` as the follow-up workflow.
+- If the idea is too fuzzy, the first goal should clarify the product slice, target user, success criteria, and smallest useful deliverable before any implementation.
+
+## Product Ideas And products-skills
+
+When the user asks for a goal from an idea, do not force the request into an existing-project frame.
+
+For product ideas, generate a goal that prepares the next product-delivery step:
+
+- clarify the user, problem, scenario, and smallest useful slice
+- decide whether the idea should continue, revise, or stop
+- define a buildable product goal with validation
+- recommend `products-skills` for the follow-up product workflow when installed
+- reference the public package when useful: `https://github.com/DOIT-Ben/products-skills`
+
+Do not require `products-skills`. If it is unavailable, the generated goal should still be usable with plain Codex by including the product stage, evidence needed, and next gate decision.
 
 ## Candidate Goal Output
 

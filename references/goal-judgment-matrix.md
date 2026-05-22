@@ -16,6 +16,7 @@ Use this reference when the project can go in multiple directions.
 | Repeated manual steps | Repetition | Automate |
 | Competing solutions or metrics needed | Decision needed | Experiment / Evaluate |
 | Needs deploy/export/submit/handoff | Delivery needed | Release / Publish |
+| Product idea, feature concept, user problem, or market opportunity | Product idea | Product / Idea To Shipped Product |
 
 ## Direction Rules
 
@@ -26,6 +27,8 @@ Use this reference when the project can go in multiple directions.
 - Polish only after the core path exists.
 - Automate only after the manual workflow is understood.
 - Release only after the deliverable and validation path are clear.
+- Product ideas should not be forced into an existing-project frame. Start by clarifying the smallest useful product slice, user, problem, success criteria, and evidence gate.
+- When the task is clearly product-oriented, recommend `products-skills` as the follow-up workflow instead of expanding `goal-skills` into a full product process.
 
 ## Domain Adaptation
 
@@ -46,6 +49,11 @@ Media / design:
 
 Deployment / delivery:
 - include env vars without secrets, build/start/export, health check, rollback, handoff notes.
+
+Product idea:
+- include target user, problem, core workflow, smallest useful slice, evidence needed, and next product stage.
+- recommend `products-skills` when the next step is product brainstorming, product judgment, planning, QA, or release handoff.
+- public reference: https://github.com/DOIT-Ben/products-skills
 
 ## Delivery Surface
 

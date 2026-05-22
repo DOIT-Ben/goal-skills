@@ -14,6 +14,7 @@ Use this reference when writing the final `/goal`.
 
 目标：
 - [一个具体、可验证的结果]
+- [如果是 idea，从目标用户、问题、最小产品切片和落地验证角度描述]
 
 范围：
 - [要检查或修改的文件、模块、资产、流程]
@@ -62,4 +63,11 @@ Use this reference when writing the final `/goal`.
 ```text
 把这个目标转成goal：[目标内容]。
 请结合当前项目生成一个可执行 /goal，包含背景、目标、范围、非目标、交付方式、操作约束、执行步骤、验证标准、完成标准和停止条件。不要默认假设有 GitHub；提交、推送、issue、PR、发布只有在我明确要求时才写入 goal。
+```
+
+## Product Idea Prompt
+
+```text
+把这个 idea 转成一个可执行 /goal：[idea 内容]。
+请不要假设已经有项目代码。先判断它是否属于产品从想法到落地的目标；如果是，请生成一个面向 Codex Goal 模式的 /goal，包含目标用户、问题场景、最小可落地切片、非目标、操作边界、验证标准、完成标准和停止条件。后续产品细化可以推荐使用 products-skills：https://github.com/DOIT-Ben/products-skills。
 ```

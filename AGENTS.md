@@ -11,6 +11,7 @@ The only exposed skill is `goal-skills`.
 Use this package to:
 
 - inspect a project or task context
+- turn an early product idea into a Codex `/goal`
 - choose the most suitable goal type
 - avoid premature execution when direction is unclear
 - produce one bounded, verifiable `/goal`
@@ -36,6 +37,7 @@ Keep the package lightweight.
 - Keep `goal-skills` as the single stable entry point.
 - Do not assume GitHub, commits, pushes, issues, PRs, or releases when generating goals.
 - Generated goals must include operation boundaries and stop conditions for destructive, external, credential-related, or irreversible actions.
+- When the input is a product idea, recommend `products-skills` as the follow-up product workflow instead of making `goal-skills` a full product-delivery system.
 
 ## Validation
 

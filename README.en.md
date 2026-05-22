@@ -10,6 +10,8 @@
 
 Prepare a clear goal for Codex Goal mode so the AI can keep working toward a verifiable outcome instead of only answering one prompt.
 
+It works for existing projects and for early product ideas that need to become executable `/goal` prompts.
+
 ## What Is Codex Goal Mode
 
 Codex `/goal` is an autonomous task mode: you give the AI a verifiable goal, and it keeps planning, acting, testing, reviewing, and iterating until the goal is complete, the budget is exhausted, or you stop it manually.
@@ -44,12 +46,15 @@ Persistent work does not mean “anything goes.” A good goal also defines oper
 - Automate
 - Experiment / Evaluate
 - Release / Publish
+- Product / Idea To Shipped Product
 
 Then it generates a prompt suitable for Codex `/goal`.
 
 It is not a project-management template pack. It does not require status documents or heavyweight process files.
 
 It also does not assume GitHub. Without GitHub, the goal can use local validation, artifacts, logs, or a summary as the delivery path. Commit, push, issues, PRs, and releases are included only when the user explicitly asks for them.
+
+For product ideas, `goal-skills` can generate an idea-to-delivery goal and recommend [products-skills](https://github.com/DOIT-Ben/products-skills) for follow-up product clarification, judgment, planning, QA, and release handoff.
 
 ## Trigger Phrases
 

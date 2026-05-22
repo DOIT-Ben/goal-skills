@@ -1,7 +1,7 @@
 {
   "name": "goal-skills",
-  "version": "1.0.1",
-  "description": "Generate scoped, verifiable Codex /goal prompts from real project context.",
+  "version": "1.0.2",
+  "description": "Generate scoped, verifiable Codex /goal prompts from projects, product ideas, and rough targets.",
   "author": {
     "name": "DOIT-Ben"
   },
@@ -12,6 +12,8 @@
     "goal",
     "codex-goal",
     "project-goal",
+    "product-idea",
+    "idea-to-product",
     "prompt",
     "planning",
     "workflow"
@@ -20,7 +22,7 @@
   "interface": {
     "displayName": "Goal Skills",
     "shortDescription": "Generate a project-aware Codex /goal.",
-    "longDescription": "Turns a project, directory, current problem, or rough target into a bounded and verifiable Codex /goal by choosing the right direction first.",
+    "longDescription": "Turns a project, product idea, current problem, or rough target into a bounded and verifiable Codex /goal by choosing the right direction first.",
     "developerName": "DOIT-Ben",
     "category": "Productivity",
     "capabilities": [
