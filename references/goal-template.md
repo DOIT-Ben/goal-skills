@@ -4,8 +4,12 @@ Use this reference when writing the final `/goal`.
 
 ## Final Goal Skeleton
 
+Match the user's language. Use the Chinese skeleton for Chinese requests and the English skeleton for English requests.
+
+### Chinese Skeleton
+
 ```text
-/goal [Goal Type]
+/goal [目标类型]
 
 项目背景：
 - [当前项目是什么]
@@ -51,6 +55,55 @@ Use this reference when writing the final `/goal`.
 - 需要删除核心文件、改全局配置、处理密钥、执行破坏性命令、外部写入、提交推送、部署或发布时，如果用户没有明确授权，先停下来确认。
 ```
 
+### English Skeleton
+
+```text
+/goal [Goal Type]
+
+Background:
+- [What the project or idea is]
+- [Current state and key evidence]
+- [What the user actually wants to achieve]
+
+Goal:
+- [One concrete, verifiable outcome]
+- [For an idea, describe target user, problem, smallest product slice, and validation]
+
+Scope:
+- [Files, modules, assets, workflow, or evidence to inspect or change]
+
+Non-Goals:
+- [What not to do]
+
+Delivery:
+- [Local validation / artifact / summary / commit / PR / release; do not assume GitHub]
+
+Constraints:
+- [Project rules, style, safety boundaries, no hard-coded secrets, no unrelated refactor]
+- Do not delete, overwrite, or mass-move core source, config, data, models, deliverables, or rule files unless explicitly requested.
+- Do not run high-risk commands such as `git reset --hard`, forced checkout, recursive delete, database wipe, secret rotation, or bulk formatting unless explicitly approved.
+- Do not expose, print, commit, or hard-code secrets, tokens, accounts, or credentials.
+- Do not change global machine config, system services, scheduled tasks, shell profiles, or external accounts unless the goal explicitly requires it.
+- Do not include unrequested commit, push, issue, PR, or release steps.
+- Do not write to external systems such as cloud services, deployment platforms, databases, package registries, email, messaging tools, payment systems, public websites, or third-party APIs unless explicitly authorized.
+
+Steps:
+1. Inspect current state and key evidence.
+2. Complete the smallest useful loop.
+3. Run domain-appropriate validation.
+4. Summarize changes, validation, residual risks, and next steps.
+
+Validation:
+- [Commands, artifacts, screenshots, manual review, source list, or metrics]
+
+Completion:
+- [Observable done state]
+
+Stop Conditions:
+- [Missing critical input, high-risk operation, goal conflict, or failed validation]
+- Stop for confirmation before deleting core files, changing global config, handling secrets, running destructive commands, external writes, commit/push, deployment, or release unless explicitly authorized.
+```
+
 ## Candidate Prompt
 
 ```text
@@ -70,7 +123,7 @@ Use this reference when writing the final `/goal`.
 
 ```text
 把这个 idea 转成一个可执行 /goal：[idea 内容]。
-请不要假设已经有项目代码。先判断它是否属于产品从想法到落地的目标；如果是，请生成一个面向 Codex Goal 模式的 /goal，包含目标用户、问题场景、最小可落地切片、非目标、操作边界、验证标准、完成标准和停止条件。后续产品细化可以推荐使用 products-skills：https://github.com/DOIT-Ben/products-skills。
+请不要假设已经有项目代码。先判断它是否属于从想法到最小产品切片的目标；如果是，请生成一个面向 Codex Goal 模式的 /goal，包含目标用户、问题场景、最小可落地切片、非目标、操作边界、验证标准、完成标准和停止条件。
 ```
 
 ## Lightweight Candidate Prompt

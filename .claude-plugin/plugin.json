@@ -1,7 +1,7 @@
 {
   "name": "goal-skills",
   "description": "Generate scoped, verifiable Codex /goal prompts from projects, product ideas, and rough targets.",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "supportStatus": "experimental",
   "author": {
     "name": "DOIT-Ben"

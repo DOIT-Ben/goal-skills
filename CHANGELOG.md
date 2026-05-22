@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.2.2 - 2026-05-22
+
+- Added language-matched Chinese and English candidate/final goal templates.
+- Renamed the product idea goal type to `Idea / Product Slice` and narrowed product-methodology overlap.
+- Added standalone public examples for messy projects, broken apps, product ideas, and direct repair goals.
+- Added machine-checkable eval fields such as `expected_mode`, `must_include`, and `must_not_include`.
+- Clarified Codex Goal behavior depends on the current Codex version and runtime.
+- Documented experimental Claude Code installation and trigger caveats.
+
 ## 0.2.1 - 2026-05-22
 
 - Added intent-style English triggers for Codex goal and task-to-goal requests.

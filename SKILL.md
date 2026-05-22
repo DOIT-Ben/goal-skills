@@ -12,7 +12,7 @@ Use this skill to turn a project, product idea, directory, current problem, or r
 The job is not project management paperwork. The job is judgment:
 
 1. Inspect the real project signals.
-2. Decide what kind of goal the situation actually needs, including idea-to-product goals when the user starts from a concept instead of an existing repo.
+2. Decide what kind of goal the situation actually needs, including idea-to-product-slice goals when the user starts from a concept instead of an existing repo.
 3. Avoid choosing a wrong direction too early.
 4. Produce a goal prompt that is specific, bounded, verifiable, and useful for execution.
 
@@ -52,12 +52,13 @@ Internal references are optional support files:
 - `references/goal-judgment-matrix.md`: how to choose goal type across different project states and domains.
 - `references/goal-template.md`: final `/goal` structure and examples.
 - `references/example-walkthrough.md`: worked example from a messy project prompt to final goal.
+- `examples/`: public examples for common messy project, broken app, product idea, and direct repair cases.
 
 Load references by rule:
 
 - Load `references/goal-judgment-matrix.md` when the direction is ambiguous, the project is messy, the request spans multiple possible goal types, or the input is a product idea.
 - Load `references/goal-template.md` whenever writing, revising, or checking a final `/goal`.
-- Load `references/example-walkthrough.md` when output style is unclear, when adding or reviewing examples, or when testing messy-project behavior.
+- Load `references/example-walkthrough.md` or `examples/` when output style is unclear, when adding or reviewing examples, or when testing common behavior.
 
 ## Default Behavior
 
@@ -144,7 +145,7 @@ Then choose the goal type:
 | Repeated manual work | Automate | Need a repeatable script, command, workflow, or batch process |
 | Decision needed | Experiment / Evaluate | Need metrics, comparison, tests, benchmark, or conclusion |
 | Delivery needed | Release / Publish | Need deploy, export, publish, submit, handoff, archive, or checklist |
-| Product idea | Product / Idea To Shipped Product | Need to turn an idea into a practical product slice and route follow-up work through products-skills |
+| Product idea | Idea / Product Slice | Need to turn an idea into a practical product slice |
 
 Prefer the goal type that removes the biggest current blocker. For example:
 
@@ -152,32 +153,32 @@ Prefer the goal type that removes the biggest current blocker. For example:
 - If the user wants polish but the intended product is undefined, choose `Research / Spec` or `Discover / Map` first.
 - If the user wants release but there is no verified build/export path, choose `Repair / Restore` or `Release / Publish` with verification as the core.
 - If the user says only "看看这个项目", choose `Discover / Map`.
-- If the user starts from a product idea instead of an existing implementation, choose `Product / Idea To Shipped Product` and recommend `products-skills` as the follow-up workflow.
+- If the user starts from a product idea instead of an existing implementation, choose `Idea / Product Slice`.
 - If the idea is too fuzzy, the first goal should clarify the product slice, target user, success criteria, and smallest useful deliverable before any implementation.
 
-## Product Ideas And products-skills
+## Product Ideas
 
 When the user asks for a goal from an idea, do not force the request into an existing-project frame.
 
-For product ideas, generate a goal that prepares the next product-delivery step:
+For product ideas, generate a goal that prepares only the next product-delivery step:
 
 - clarify the user, problem, scenario, and smallest useful slice
 - decide whether the idea should continue, revise, or stop
 - define a buildable product goal with validation
-- recommend `products-skills` for the follow-up product workflow when installed
-- reference the public package when useful: `https://github.com/DOIT-Ben/products-skills`
 
-Do not require `products-skills`. If availability is unknown or it is unavailable, say it is an optional follow-up and make the generated goal usable with plain Codex by including the product stage, evidence needed, and next gate decision.
+Do not turn this skill into a product-methodology package. If the user wants deeper product brainstorming, product judgment, planning, QA, or release handoff, mention `products-skills` once as an optional follow-up and keep the generated goal usable with plain Codex.
 
 ## Candidate Goal Output
 
 When direction is not confirmed, choose the smallest useful candidate format.
 
+Match the user's language. Use Chinese labels for Chinese requests and English labels for English requests. Do not mix Chinese headings with English placeholder text.
+
 Use lightweight mode for small tasks, clear local asks, or low uncertainty: give one recommended direction and one backup direction.
 
 Use full mode for messy projects, product ideas, high uncertainty, release work, or conflicting signals: give 2-3 candidates.
 
-Lightweight format:
+Chinese lightweight format:
 
 ```text
 ### 当前判断
@@ -193,7 +194,23 @@ Lightweight format:
 如果这个方向对，确认后我生成最终 `/goal`。
 ```
 
-Full format:
+English lightweight format:
+
+```text
+### Current Read
+- Current state:
+- Biggest blocker:
+
+### Recommended Direction
+- Primary:
+- Why:
+- Backup:
+
+### Confirmation Needed
+If this direction looks right, confirm and I will generate the final `/goal`.
+```
+
+Chinese full format:
 
 ```text
 ### 当前判断
@@ -209,7 +226,7 @@ Full format:
 
 ### 候选 Goals
 
-#### A. [Goal Type]
+#### A. [目标类型]
 - 适合原因：
 - 会做什么：
 - 不会做什么：
@@ -217,7 +234,7 @@ Full format:
 - 验证方式：
 - 风险：
 
-#### B. [Goal Type]
+#### B. [目标类型]
 - 适合原因：
 - 会做什么：
 - 不会做什么：
@@ -229,47 +246,128 @@ Full format:
 请选择 A / B，或告诉我你想优先达成的结果。确认后我再生成最终 `/goal`。
 ```
 
+English full format:
+
+```text
+### Current Read
+- Project/task type:
+- Current state:
+- Biggest uncertainty:
+- Biggest blocker:
+
+### Recommended Direction
+- Primary:
+- Why:
+- Not recommended now:
+
+### Candidate Goals
+
+#### A. [goal type]
+- Fit:
+- Will do:
+- Will not do:
+- Expected result:
+- Validation:
+- Risk:
+
+#### B. [goal type]
+- Fit:
+- Will do:
+- Will not do:
+- Expected result:
+- Validation:
+- Risk:
+
+### Confirmation Needed
+Choose A / B, or tell me which outcome to prioritize. After confirmation I will generate the final `/goal`.
+```
+
 ## Final Goal Output
 
 When the direction is confirmed, output one executable goal:
 
+Match the user's language. For Chinese requests, use the Chinese skeleton. For English requests, use the English skeleton.
+
+Chinese skeleton:
+
+```text
+/goal [目标类型]
+
+项目背景：
+- [项目类型、当前状态、关键证据]
+
+目标：
+- [一个具体可验证的结果]
+
+范围：
+- [要检查或修改的内容]
+
+非目标：
+- [明确不做的事情]
+
+交付方式：
+- [本地产物 / 总结 / commit / PR / release；不要默认假设 GitHub]
+
+约束：
+- [风格、安全、项目规则、不要无关重构、不要泄露密钥]
+- [操作边界：不做破坏性改动、不删除核心文件、不暴露凭据、不改全局配置]
+
+执行步骤：
+1. [检查证据]
+2. [实现或整理]
+3. [验证]
+4. [总结]
+
+验证标准：
+- [命令、检查、人工复核或产物]
+
+完成标准：
+- [用户可观察的完成状态]
+
+停止条件：
+- [什么时候停下来问用户]
+- [破坏性、高风险、不可逆、外部写入、GitHub 或凭据动作需要确认]
+```
+
+English skeleton:
+
 ```text
 /goal [Goal Type]
 
-项目背景：
-- [project type, current state, important context]
+Background:
+- [project type, current state, key evidence]
 
-目标：
-- [one concrete outcome]
+Goal:
+- [one concrete, verifiable outcome]
 
-范围：
-- [what to inspect/change]
+Scope:
+- [what to inspect or change]
 
-非目标：
+Non-Goals:
 - [what not to do]
 
-交付方式：
+Delivery:
 - [local artifact / summary / commit / PR / release; do not assume GitHub]
 
-约束：
-- [style, safety, project rules, no unrelated refactor, no secrets, etc.]
+Constraints:
+- [style, safety, project rules, no unrelated refactor, no secrets]
 - [operation boundaries: no destructive edits, no deleting core files, no credential exposure, no global changes]
 
-执行步骤：
-1. [inspect]
+Steps:
+1. [inspect evidence]
 2. [implement or compose]
 3. [validate]
 4. [summarize]
 
-验证标准：
-- [commands/checks/manual review]
+Validation:
+- [commands, checks, manual review, artifacts, or metrics]
 
-完成标准：
+Completion:
 - [observable done state]
 
-停止条件：
-- [when to ask user instead of guessing]
-- [destructive/high-risk/irreversible/external-write/GitHub or credential action needs confirmation]
+Stop Conditions:
+- [when to ask the user instead of guessing]
+- [destructive, high-risk, irreversible, external-write, GitHub, or credential actions need confirmation]
 ```
 
 ## Fallback Handling

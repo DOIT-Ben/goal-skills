@@ -12,11 +12,13 @@ The package name stays plural, but it exposes one public entry point: `goal-skil
 
 Prepare a clear goal for Codex Goal mode so the AI can keep working toward a verifiable outcome instead of only answering one prompt.
 
+Exact behavior depends on the current Codex version and runtime. This skill generates bounded, verifiable `/goal` prompts; it does not guarantee that every platform executes them in the same way.
+
 It works for existing projects and for early product ideas that need to become executable `/goal` prompts.
 
 ## What Is Codex Goal Mode
 
-Codex `/goal` is an autonomous task mode: you give the AI a verifiable goal, and it keeps planning, acting, testing, reviewing, and iterating until the goal is complete, the budget is exhausted, or you stop it manually.
+Codex `/goal` is an autonomous task mode: you give the AI a verifiable goal, and it typically keeps planning, acting, testing, reviewing, and iterating until the goal is complete, the budget is exhausted, or you stop it manually. Exact behavior depends on the Codex version and runtime you are using.
 
 So a goal is not just “fix this.” It is closer to a task brief:
 
@@ -48,7 +50,7 @@ Persistent work does not mean “anything goes.” A good goal also defines oper
 - Automate
 - Experiment / Evaluate
 - Release / Publish
-- Product / Idea To Shipped Product
+- Idea / Product Slice
 
 Then it generates a prompt suitable for Codex `/goal`.
 
@@ -56,7 +58,7 @@ It is not a project-management template pack. It does not require status documen
 
 It also does not assume GitHub. Without GitHub, the goal can use local validation, artifacts, logs, or a summary as the delivery path. Commit, push, issues, PRs, and releases are included only when the user explicitly asks for them.
 
-For product ideas, `goal-skills` can generate an idea-to-delivery goal and recommend [products-skills](https://github.com/DOIT-Ben/products-skills) for follow-up product clarification, judgment, planning, QA, and release handoff.
+For product ideas, `goal-skills` only turns the idea into an executable smallest-product-slice goal. Deeper product clarification, judgment, planning, QA, and release handoff can optionally continue in [products-skills](https://github.com/DOIT-Ben/products-skills).
 
 ## Trigger Phrases
 
@@ -92,6 +94,14 @@ For local development from the repository root:
 npx skills add . -g -a codex -y --full-depth
 ```
 
+Experimental Claude Code install:
+
+```powershell
+npx skills add https://github.com/DOIT-Ben/goal-skills -g -a claude-code -y --full-depth
+```
+
+Claude / Claude Code support is not part of the verified compatibility surface yet. Different platforms may read `SKILL.md`, `skill.json`, or plugin metadata differently; if triggering is unstable, use `$goal-skills` explicitly or include trigger phrases such as `/goal prompt` or `Codex goal`.
+
 ## Typical Use
 
 ```text
@@ -122,6 +132,11 @@ goal-skills/
     goal-judgment-matrix.md
     goal-template.md
     example-walkthrough.md
+  examples/
+    messy-project.md
+    broken-app.md
+    product-idea.md
+    direct-repair.md
   evals/
     evals.json
 ```
