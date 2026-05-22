@@ -6,6 +6,8 @@
 
 `goal-skills` is a lightweight skill for generating Codex `/goal` prompts.
 
+The package name stays plural, but it exposes one public entry point: `goal-skills`.
+
 ## One-Liner
 
 Prepare a clear goal for Codex Goal mode so the AI can keep working toward a verifiable outcome instead of only answering one prompt.
@@ -69,6 +71,12 @@ Trigger phrasing is intentionally narrow in both Chinese and English:
 - `generate a goal`
 - `set a goal for this project`
 - `convert this into a goal`
+- `Codex goal`
+- `/goal prompt`
+- `convert task to goal`
+- `plan before change`
+
+This is not a generic planning template. Trigger it when the user clearly wants a goal, a Codex `/goal`, a task-to-goal conversion, or a plan-before-change handoff.
 
 ## Install
 
@@ -99,4 +107,21 @@ Then:
 $goal-skills
 
 选 A。请生成最终可执行 /goal。
+```
+
+## Package Shape
+
+```text
+goal-skills/
+  README.md
+  README.en.md
+  SKILL.md
+  skill.json
+  AGENTS.md
+  references/
+    goal-judgment-matrix.md
+    goal-template.md
+    example-walkthrough.md
+  evals/
+    evals.json
 ```

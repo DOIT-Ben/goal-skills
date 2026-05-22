@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.1 - 2026-05-22
+
+- Added intent-style English triggers for Codex goal and task-to-goal requests.
+- Tightened execution handoff rules so the skill remains goal-first.
+- Clarified reference loading rules, lightweight candidate output, fallback handling, and final goal acceptance checks.
+- Expanded external-write boundaries beyond GitHub.
+- Added regression eval prompts for trigger, safety, fallback, and product-idea behavior.
+
 ## 0.2.0 - 2026-05-22
 
 - Reset package version to pre-1.0 while the public API and install surfaces stabilize.

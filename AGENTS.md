@@ -29,6 +29,10 @@ Treat these as strong triggers:
 - generate a goal
 - set a goal for this project
 - convert this into a goal
+- Codex goal
+- /goal prompt
+- convert task to goal
+- plan before change
 
 ## Scope
 
@@ -40,6 +44,7 @@ Keep the package lightweight.
 - Keep `goal-skills` as the single stable entry point.
 - Do not assume GitHub, commits, pushes, issues, PRs, or releases when generating goals.
 - Generated goals must include operation boundaries and stop conditions for destructive, external, credential-related, or irreversible actions.
+- Treat deployments, databases, cloud services, package registries, email, messaging tools, payment systems, public websites, and third-party APIs as external writes that need explicit authorization.
 - When the input is a product idea, recommend `products-skills` as the follow-up product workflow instead of making `goal-skills` a full product-delivery system.
 
 ## Validation

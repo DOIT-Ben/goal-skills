@@ -1,6 +1,6 @@
 ---
 name: goal-skills
-description: Use when the user says 生成一个goal, 针对这个项目设置一个goal, 给这个项目设置一个goal, 为当前项目生成goal, 把这个目标转成goal, 先别改，先生成goal, generate a goal, set a goal for this project, or convert this into a goal.
+description: Use when the user asks to generate a Codex /goal prompt, set a goal for a project, convert a task, idea, or problem into a goal, or plan before changing files with phrases like 生成一个goal, 先别改，先生成goal, generate a goal, Codex goal, /goal prompt, convert task to goal, or plan before change.
 ---
 
 # Goal Skills
@@ -18,7 +18,7 @@ The job is not project management paperwork. The job is judgment:
 
 ## Trigger Phrases
 
-Treat only these as strong trigger phrases:
+Treat these as strong phrase triggers:
 
 - `生成一个goal`
 - `针对这个项目设置一个goal`
@@ -29,6 +29,19 @@ Treat only these as strong trigger phrases:
 - `generate a goal`
 - `set a goal for this project`
 - `convert this into a goal`
+- `Codex goal`
+- `/goal prompt`
+- `convert task to goal`
+- `plan before change`
+
+Also trigger on clear intent, even when the exact phrase differs:
+
+- the user wants a Codex `/goal` prompt instead of immediate work
+- the user asks to convert a task, product idea, bug, rough target, or project direction into a goal
+- the user says to plan or define the goal before editing, implementing, refactoring, publishing, or changing files
+- the user wants bounded autonomous execution with scope, constraints, validation, and stop conditions
+
+Do not trigger for generic planning requests unless the user mentions `goal`, `/goal`, Codex Goal mode, or asks to turn the plan into an executable goal.
 
 ## Minimal Package Shape
 
@@ -40,7 +53,11 @@ Internal references are optional support files:
 - `references/goal-template.md`: final `/goal` structure and examples.
 - `references/example-walkthrough.md`: worked example from a messy project prompt to final goal.
 
-Load the relevant reference only when the main skill body is not enough.
+Load references by rule:
+
+- Load `references/goal-judgment-matrix.md` when the direction is ambiguous, the project is messy, the request spans multiple possible goal types, or the input is a product idea.
+- Load `references/goal-template.md` whenever writing, revising, or checking a final `/goal`.
+- Load `references/example-walkthrough.md` when output style is unclear, when adding or reviewing examples, or when testing messy-project behavior.
 
 ## Default Behavior
 
@@ -48,7 +65,9 @@ If the user asks for goal analysis, first produce candidate directions and ask f
 
 If the user already gives a clear target and asks to generate a goal, produce the final `/goal` directly.
 
-If the user asks to execute the goal, restate the goal briefly, then execute and validate using the project context.
+If the user asks to execute the goal, do not treat this skill as permission to skip goal confirmation. Execute only when a final `/goal` has been confirmed and the user explicitly asks to run it. If the goal is missing or ambiguous, generate or restate the goal first and ask for confirmation.
+
+During any execution handoff, stay inside the confirmed goal. Stop before destructive, irreversible, credential-related, external-write, or scope-expanding actions unless the user explicitly approves that specific action.
 
 ## Bounded Autonomy
 
@@ -60,6 +79,7 @@ Every generated goal must include operation constraints. Default constraints:
 - Do not run destructive commands such as `git reset --hard`, forced checkout, recursive delete, database wipe, secret rotation, or bulk formatting without explicit approval.
 - Do not expose, print, commit, or hard-code secrets, tokens, private accounts, or credentials.
 - Do not change global machine settings, scheduled tasks, system services, shell profiles, package managers, or external accounts unless the goal explicitly requires it.
+- Do not write to external systems such as GitHub, cloud services, deployments, databases, package registries, payment systems, email, messaging tools, public websites, or third-party APIs unless the user explicitly asks for that exact delivery path.
 - Do not broaden scope into unrelated refactors, redesigns, dependency swaps, or cleanup.
 - Preserve user changes. If the worktree is dirty, inspect and work around unrelated changes instead of reverting them.
 - Stop and ask when a required action is irreversible, high-risk, credential-related, destructive, or outside the confirmed goal.
@@ -75,6 +95,8 @@ When generating a goal:
 - If the user asks for version control, include local `git status`, intentional staging, and a commit only after scope is clear.
 - If the user explicitly asks for GitHub release, issue submission, PR, or push, include GitHub checks such as remote, branch, auth, visibility, and final URL verification.
 - If GitHub is unavailable, replace GitHub delivery with a local handoff package, patch summary, checklist, or manual commands.
+
+Apply the same rule to all external writes. If a goal would deploy, publish, send email, modify a database, call a third-party write API, upload to cloud storage, change billing/payment state, or affect public/private accounts, include a stop-and-confirm step unless the user already authorized that exact action.
 
 ## What To Inspect
 
@@ -145,11 +167,33 @@ For product ideas, generate a goal that prepares the next product-delivery step:
 - recommend `products-skills` for the follow-up product workflow when installed
 - reference the public package when useful: `https://github.com/DOIT-Ben/products-skills`
 
-Do not require `products-skills`. If it is unavailable, the generated goal should still be usable with plain Codex by including the product stage, evidence needed, and next gate decision.
+Do not require `products-skills`. If availability is unknown or it is unavailable, say it is an optional follow-up and make the generated goal usable with plain Codex by including the product stage, evidence needed, and next gate decision.
 
 ## Candidate Goal Output
 
-When direction is not confirmed, output 2-3 candidates:
+When direction is not confirmed, choose the smallest useful candidate format.
+
+Use lightweight mode for small tasks, clear local asks, or low uncertainty: give one recommended direction and one backup direction.
+
+Use full mode for messy projects, product ideas, high uncertainty, release work, or conflicting signals: give 2-3 candidates.
+
+Lightweight format:
+
+```text
+### 当前判断
+- 当前阶段：
+- 最大阻塞点：
+
+### 推荐方向
+- 首选：
+- 理由：
+- 备选：
+
+### 需要你确认
+如果这个方向对，确认后我生成最终 `/goal`。
+```
+
+Full format:
 
 ```text
 ### 当前判断
@@ -225,8 +269,33 @@ When the direction is confirmed, output one executable goal:
 
 停止条件：
 - [when to ask user instead of guessing]
-- [destructive/high-risk/irreversible/GitHub or credential action needs confirmation]
+- [destructive/high-risk/irreversible/external-write/GitHub or credential action needs confirmation]
 ```
+
+## Fallback Handling
+
+If project evidence is missing or inaccessible, do not invent certainty.
+
+- If README, package files, docs, or entry points are missing, state the missing evidence and generate a discovery-first goal.
+- If the current directory cannot be read, ask for the correct path or user-provided context before generating a project-specific goal.
+- If validation commands are unknown, include "discover validation path" as an early step instead of inventing a command.
+- If dependencies are unavailable, avoid install commands by default; include dependency inspection and a stop condition before installation.
+- If the user-provided target conflicts with project rules or visible state, surface the conflict and ask whether to prioritize the target or the rule.
+- If confidence is low, mark the goal as low-confidence and make evidence gathering the first deliverable.
+
+## Goal Acceptance Checklist
+
+Before returning a final `/goal`, check that it includes:
+
+- one concrete outcome, not a vague improvement theme
+- project or idea context grounded in visible evidence or user-provided facts
+- explicit scope and non-goals
+- a local delivery path when GitHub or external services were not requested
+- operation boundaries for destructive, credential, global, and external-write actions
+- ordered execution steps that start with evidence gathering when the state is unclear
+- validation standards using commands, artifacts, screenshots, source lists, manual review, or measurable checks
+- completion criteria the user can observe
+- stop conditions for missing inputs, high risk, external writes, irreversible actions, or scope conflicts
 
 ## Quality Bar
 

@@ -17,5 +17,8 @@ jobs:
         with:
           node-version: "22"
 
+      - name: Validate JSON metadata
+        run: node -e "for (const f of ['skill.json', '.codex-plugin/plugin.json', '.claude-plugin/plugin.json', '.claude-plugin/marketplace.json', 'evals/evals.json']) JSON.parse(require('fs').readFileSync(f, 'utf8'))"
+
       - name: Verify skill discovery
         run: npx --yes skills add . --list --full-depth

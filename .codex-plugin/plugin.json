@@ -1,6 +1,6 @@
 {
   "name": "goal-skills",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Generate scoped, verifiable Codex /goal prompts from projects, product ideas, and rough targets.",
   "author": {
     "name": "DOIT-Ben"
@@ -39,7 +39,11 @@
       "先别改，先生成goal",
       "generate a goal",
       "set a goal for this project",
-      "convert this into a goal"
+      "convert this into a goal",
+      "Codex goal",
+      "/goal prompt",
+      "convert task to goal",
+      "plan before change"
     ],
     "brandColor": "#0F766E"
   }
