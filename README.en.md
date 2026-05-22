@@ -8,6 +8,21 @@
 
 It exists for one job: inspect a project, directory, problem, or rough target, choose the right goal direction, and produce a bounded, verifiable `/goal`.
 
+## What is a goal
+
+A goal is a clear statement of what this round should accomplish.
+
+It is not just “fix it.” It should say:
+
+- what to fix
+- what counts as done
+- what to inspect before changing things
+- what is explicitly out of scope
+
+## Why goals matter
+
+AI often wants to start working immediately. That sounds productive, but it can waste time if the direction is fuzzy. A goal helps keep the work bounded, reduces rework, and makes the next step easier to verify.
+
 ## Trigger Phrases
 
 The Chinese trigger phrasing is intentionally narrow:
