@@ -1,0 +1,22 @@
+{
+  "name": "goal-skills",
+  "description": "Generate scoped, verifiable Codex /goal prompts from project context.",
+  "version": "1.0.0",
+  "author": {
+    "name": "DOIT-Ben"
+  },
+  "homepage": "https://github.com/DOIT-Ben/goal-skills",
+  "repository": "https://github.com/DOIT-Ben/goal-skills",
+  "license": "MIT",
+  "keywords": [
+    "goal",
+    "codex-goal",
+    "project-goal",
+    "prompt",
+    "planning",
+    "workflow"
+  ],
+  "skills": [
+    "./SKILL.md"
+  ]
+}

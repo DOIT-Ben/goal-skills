@@ -1,0 +1,36 @@
+{
+  "name": "goal-skills",
+  "displayName": "Goal Skills",
+  "description": "A lightweight skill for turning a project, directory, current problem, or rough target into a scoped and verifiable Codex /goal prompt.",
+  "version": "1.0.0",
+  "author": "DOIT-Ben",
+  "license": "MIT",
+  "homepage": "https://github.com/DOIT-Ben/goal-skills",
+  "repository": "https://github.com/DOIT-Ben/goal-skills",
+  "keywords": [
+    "goal",
+    "codex-goal",
+    "project-goal",
+    "prompt",
+    "planning",
+    "workflow",
+    "codex",
+    "claude",
+    "ai-skill"
+  ],
+  "platforms": [
+    "codex",
+    "claude",
+    "claude-code",
+    "cursor",
+    "windsurf",
+    "copilot",
+    "kiro",
+    "opencode",
+    "continue"
+  ],
+  "skills": [
+    "./SKILL.md"
+  ],
+  "install": "npx skills add . -g -a codex claude-code -y --full-depth"
+}

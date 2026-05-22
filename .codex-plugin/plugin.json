@@ -1,0 +1,38 @@
+{
+  "name": "goal-skills",
+  "version": "1.0.0",
+  "description": "Generate scoped, verifiable Codex /goal prompts from real project context.",
+  "author": {
+    "name": "DOIT-Ben"
+  },
+  "homepage": "https://github.com/DOIT-Ben/goal-skills",
+  "repository": "https://github.com/DOIT-Ben/goal-skills",
+  "license": "MIT",
+  "keywords": [
+    "goal",
+    "codex-goal",
+    "project-goal",
+    "prompt",
+    "planning",
+    "workflow"
+  ],
+  "skills": "./",
+  "interface": {
+    "displayName": "Goal Skills",
+    "shortDescription": "Generate a project-aware Codex /goal.",
+    "longDescription": "Turns a project, directory, current problem, or rough target into a bounded and verifiable Codex /goal by choosing the right direction first.",
+    "developerName": "DOIT-Ben",
+    "category": "Productivity",
+    "capabilities": [
+      "Read",
+      "Interactive"
+    ],
+    "websiteURL": "https://github.com/DOIT-Ben/goal-skills",
+    "defaultPrompt": [
+      "生成一个goal",
+      "针对这个项目设置一个goal",
+      "先别改，先生成goal"
+    ],
+    "brandColor": "#0F766E"
+  }
+}

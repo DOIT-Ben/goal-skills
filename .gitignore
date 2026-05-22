@@ -1,0 +1,13 @@
+.DS_Store
+Thumbs.db
+node_modules/
+.env
+.env.*
+*.log
+*.tmp
+*.bak
+dist/
+coverage/
+graphify-out/
+docs/dev-records/
+workbench/

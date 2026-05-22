@@ -1,0 +1,32 @@
+{
+  "name": "goal-skills",
+  "id": "goal-skills",
+  "owner": {
+    "name": "DOIT-Ben"
+  },
+  "metadata": {
+    "description": "Generate scoped, verifiable Codex /goal prompts from project context.",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "goal-skills",
+      "source": "./",
+      "description": "Lightweight goal prompt generation for project-aware Codex work.",
+      "version": "1.0.0",
+      "author": {
+        "name": "DOIT-Ben"
+      },
+      "keywords": [
+        "goal",
+        "codex-goal",
+        "project-goal",
+        "prompt",
+        "planning",
+        "workflow"
+      ],
+      "category": "productivity",
+      "strict": false
+    }
+  ]
+}
