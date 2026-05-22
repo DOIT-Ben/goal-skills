@@ -2,6 +2,8 @@
 
 [中文说明](README.md)
 
+> Stop letting AI jump straight into work. Teach it to write goals first.
+
 `goal-skills` is a lightweight skill for generating project-aware Codex `/goal` prompts.
 
 It exists for one job: inspect a project, directory, problem, or rough target, choose the right goal direction, and produce a bounded, verifiable `/goal`.

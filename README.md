@@ -2,6 +2,8 @@
 
 [English](README.en.md)
 
+> 别再让 AI 上来就干活，先让它学会写 goals。
+
 `goal-skills` 是一个轻量的 Codex goal 提示词生成 skill。
 
 它的目的很单一：针对某个项目、目录、问题或目标，先做通用判断，再生成更靠谱的 `/goal` 提示词。
