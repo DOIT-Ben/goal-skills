@@ -4,41 +4,33 @@
 
 > 别再让 AI 上来就干活，先让它学会写 goals。
 
-`goal-skills` 是一个轻量的 Codex goal 提示词生成 skill。
+`goal-skills` 是一个轻量的 Codex `/goal` 提示词生成 skill。
 
-它的目的很单一：针对某个项目、目录、问题或目标，先做通用判断，再生成更靠谱的 `/goal` 提示词。
+## 一句话
 
-## 什么是 goal
+给 Codex Goal 模式准备一份靠谱的任务目标，让 AI 不只是回答你一句话，而是围绕一个可验证目标持续执行下去。
 
-goal 就是“这次到底要把什么事做成什么样”的一句清楚目标。
+## 什么是 Codex Goal
 
-比如不是只说“修一下”，而是说清楚：
+Codex 的 `/goal` 是一种自主任务模式：你给 AI 一个可验证目标，它会围绕这个目标持续规划、执行、测试、复盘和迭代，直到目标完成、预算耗尽，或者你手动停止。
 
-- 要修什么
-- 修到什么状态算完成
-- 先看什么，再改什么
-- 哪些事情这次不做
+所以 goal 不是普通聊天里的“帮我修一下”，而是更像一份任务书：
 
-## 为什么需要 goal
+- 要达成什么结果
+- 哪些范围可以动
+- 哪些事情不要做
+- 怎么验证已经完成
+- 什么时候应该停下来问用户
 
-因为 AI 很容易一上来就热情开工，结果先忙半天，方向却没对齐。
+## 为什么先生成 goal
 
-先有 goal，就能先把方向、边界和验收标准说清楚，减少返工，也更容易让 AI 真正干对活。
+AI 很容易一上来就热情开工，结果先忙半天，方向却没对齐。
 
-## 什么时候用
+先生成 goal，就是先把方向、边界、验证标准和停止条件写清楚。这样 Codex 进入 `/goal` 后，才更像一个会持续推进的 AI 员工，而不是一个边做边猜的代码补丁机。
 
-这些说法应该触发它：
+## 这个 skill 做什么
 
-- `生成一个goal`
-- `针对这个项目设置一个goal`
-- `给这个项目设置一个goal`
-- `为当前项目生成goal`
-- `把这个目标转成goal`
-- `先别改，先生成goal`
-
-## 它做什么
-
-它会判断当前更适合哪类 goal：
+`goal-skills` 会先判断当前项目更适合哪类 goal：
 
 - Discover / Map：先摸清项目
 - Research / Spec：先调研或写规格
@@ -51,21 +43,20 @@ goal 就是“这次到底要把什么事做成什么样”的一句清楚目标
 - Experiment / Evaluate：实验、比较、评估
 - Release / Publish：发布、交付、导出、归档
 
+然后生成一个适合放进 Codex `/goal` 的提示词。
+
 它不是项目管理模板包，不要求维护一堆状态文档。
 
-## 文件结构
+## 触发口径
 
-```text
-goal-skills/
-  README.md
-  README.en.md
-  SKILL.md
-  skill.json
-  AGENTS.md
-  references/
-    goal-judgment-matrix.md
-    goal-template.md
-```
+这些说法应该触发它：
+
+- `生成一个goal`
+- `针对这个项目设置一个goal`
+- `给这个项目设置一个goal`
+- `为当前项目生成goal`
+- `把这个目标转成goal`
+- `先别改，先生成goal`
 
 ## 推荐用法
 
@@ -107,6 +98,20 @@ npx skills add https://github.com/DOIT-Ben/goal-skills -g -a codex claude-code -
 
 ```powershell
 npx skills add . -g -a codex claude-code -y --full-depth
+```
+
+## 文件结构
+
+```text
+goal-skills/
+  README.md
+  README.en.md
+  SKILL.md
+  skill.json
+  AGENTS.md
+  references/
+    goal-judgment-matrix.md
+    goal-template.md
 ```
 
 `AGENTS.md` 只是这个技能包自己的说明，不要覆盖到其他项目根目录。

@@ -4,39 +4,33 @@
 
 > Stop letting AI jump straight into work. Teach it to write goals first.
 
-`goal-skills` is a lightweight skill for generating project-aware Codex `/goal` prompts.
+`goal-skills` is a lightweight skill for generating Codex `/goal` prompts.
 
-It exists for one job: inspect a project, directory, problem, or rough target, choose the right goal direction, and produce a bounded, verifiable `/goal`.
+## One-Liner
 
-## What is a goal
+Prepare a clear goal for Codex Goal mode so the AI can keep working toward a verifiable outcome instead of only answering one prompt.
 
-A goal is a clear statement of what this round should accomplish.
+## What Is Codex Goal Mode
 
-It is not just “fix it.” It should say:
+Codex `/goal` is an autonomous task mode: you give the AI a verifiable goal, and it keeps planning, acting, testing, reviewing, and iterating until the goal is complete, the budget is exhausted, or you stop it manually.
 
-- what to fix
-- what counts as done
-- what to inspect before changing things
-- what is explicitly out of scope
+So a goal is not just “fix this.” It is closer to a task brief:
 
-## Why goals matter
+- what outcome to reach
+- what scope can be changed
+- what should stay out of scope
+- how completion should be verified
+- when the AI should stop and ask the user
 
-AI often wants to start working immediately. That sounds productive, but it can waste time if the direction is fuzzy. A goal helps keep the work bounded, reduces rework, and makes the next step easier to verify.
+## Why Generate a Goal First
 
-## Trigger Phrases
+AI often wants to start working immediately. That sounds productive, but it can waste time when the direction is fuzzy.
 
-The Chinese trigger phrasing is intentionally narrow:
+Generating a goal first clarifies direction, scope, validation, and stop conditions before Codex enters `/goal`. That makes the AI behave more like a persistent worker and less like a patch machine guessing its way through the project.
 
-- `生成一个goal`
-- `针对这个项目设置一个goal`
-- `给这个项目设置一个goal`
-- `为当前项目生成goal`
-- `把这个目标转成goal`
-- `先别改，先生成goal`
+## What This Skill Does
 
-## What It Does
-
-It selects among common goal directions:
+`goal-skills` chooses the most suitable goal direction:
 
 - Discover / Map
 - Research / Spec
@@ -49,17 +43,20 @@ It selects among common goal directions:
 - Experiment / Evaluate
 - Release / Publish
 
+Then it generates a prompt suitable for Codex `/goal`.
+
 It is not a project-management template pack. It does not require status documents or heavyweight process files.
 
-## Structure
+## Trigger Phrases
 
-```text
-goal-skills/
-  SKILL.md
-  references/
-    goal-judgment-matrix.md
-    goal-template.md
-```
+The Chinese trigger phrasing is intentionally narrow:
+
+- `生成一个goal`
+- `针对这个项目设置一个goal`
+- `给这个项目设置一个goal`
+- `为当前项目生成goal`
+- `把这个目标转成goal`
+- `先别改，先生成goal`
 
 ## Install
 
