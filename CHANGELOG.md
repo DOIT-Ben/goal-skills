@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.1.1 - 2026-05-22
+
+- Repositioned the package from Codex-centered wording to a portable goal compiler for all AI agents.
+- Repositioned the package as a goal compiler instead of a prompt helper.
+- Made the current conversation the first input source for goals, before project files.
+- Changed default behavior to generate one preferred executable `/goal` unless conflict, risk, or missing critical input requires candidates.
+- Reframed the quality bar around a minimum complete loop rather than merely a small task slice.
+- Expanded references into a fuller goal compiler manual with conversation extraction, decision algorithm, confidence levels, field writing rules, validation ladder, stop-condition matrix, anti-patterns, and multi-scenario walkthroughs.
+- Expanded public examples from 4 to 13 files, covering all goal types plus high-risk external-write boundaries.
+- Added eval coverage for automation dry run, authorized release/publish, and high-risk production/database boundaries.
+- Updated README, metadata, examples, and evals to cover conversation-first, one-step goal compilation, and reference-depth behavior.
+
 ## 1.1.0 - 2026-05-22
 
 - Expanded README guidance to explain what happens after starting a `/goal` and what goals are useful for.

@@ -1,20 +1,21 @@
 ---
 name: goal-skills
-description: Use when the user asks to generate a Codex /goal prompt, set a goal for a project, convert a task, idea, or problem into a goal, or plan before changing files with phrases like 生成一个goal, 先别改，先生成goal, generate a goal, Codex goal, /goal prompt, convert task to goal, or plan before change.
+description: Use when the user asks for an AI agent goal, executable goal, goal-skills, 生成goal, 把目标/想法转成goal, set a goal, convert task to goal, Codex goal, Claude Code goal, or plan before change.
 ---
 
 # Goal Skills
 
 ## Purpose
 
-Use this skill to turn a project, product idea, directory, current problem, or rough target into a well-scoped Codex `/goal` prompt.
+Use this skill as a goal compiler for AI agents: turn the current conversation, project state, directory, product idea, current problem, or rough target into one executable agent goal.
 
 The job is not project management paperwork. The job is judgment:
 
-1. Inspect the real project signals.
-2. Decide what kind of goal the situation actually needs, including idea-to-product-slice goals when the user starts from a concept instead of an existing repo.
-3. Avoid choosing a wrong direction too early.
-4. Produce a goal prompt that is specific, bounded, verifiable, and useful for execution.
+1. Treat the current conversation as the first input source. Extract the user's goal, constraints, preferences, confirmed facts, implicit deliverables, and latest corrections before looking at files.
+2. Inspect real project signals only after the conversation-derived target is clear enough to guide inspection.
+3. Decide what kind of goal the situation actually needs, including idea-to-product-slice goals when the user starts from a concept instead of an existing repo.
+4. Produce one preferred executable goal by default: specific, bounded, verifiable, and useful for autonomous execution to a deliverable result.
+5. Stop for clarification only when the target conflicts with evidence or rules, risk is high, or a critical input is missing.
 
 ## Trigger Phrases
 
@@ -27,21 +28,24 @@ Treat these as strong phrase triggers:
 - `把这个目标转成goal`
 - `先别改，先生成goal`
 - `generate a goal`
+- `agent goal`
+- `AI agent goal`
 - `set a goal for this project`
 - `convert this into a goal`
 - `Codex goal`
+- `Claude Code goal`
 - `/goal prompt`
 - `convert task to goal`
 - `plan before change`
 
 Also trigger on clear intent, even when the exact phrase differs:
 
-- the user wants a Codex `/goal` prompt instead of immediate work
+- the user wants an executable AI-agent goal instead of immediate work
 - the user asks to convert a task, product idea, bug, rough target, or project direction into a goal
 - the user says to plan or define the goal before editing, implementing, refactoring, publishing, or changing files
 - the user wants bounded autonomous execution with scope, constraints, validation, and stop conditions
 
-Do not trigger for generic planning requests unless the user mentions `goal`, `/goal`, Codex Goal mode, or asks to turn the plan into an executable goal.
+Do not trigger for generic planning requests unless the user mentions `goal`, agent goal, `/goal`, Claude Code goal, or asks to turn the plan into an executable goal.
 
 ## Minimal Package Shape
 
@@ -50,29 +54,33 @@ This package exposes only one skill: `goal-skills`.
 Internal references are optional support files:
 
 - `references/goal-judgment-matrix.md`: how to choose goal type across different project states and domains.
-- `references/goal-template.md`: final `/goal` structure and examples.
+- `references/goal-template.md`: final goal structure and examples.
 - `references/example-walkthrough.md`: worked example from a messy project prompt to final goal.
-- `examples/`: public examples for common messy project, broken app, product idea, and direct repair cases.
+- `examples/`: public examples covering all goal types, conversation-first behavior, local-only delivery, authorized release, dry-run automation, and high-risk external-write boundaries.
 
 Load references by rule:
 
 - Load `references/goal-judgment-matrix.md` when the direction is ambiguous, the project is messy, the request spans multiple possible goal types, or the input is a product idea.
-- Load `references/goal-template.md` whenever writing, revising, or checking a final `/goal`.
+- Load `references/goal-template.md` whenever writing, revising, or checking a final goal.
 - Load `references/example-walkthrough.md` or `examples/` when output style is unclear, when adding or reviewing examples, or when testing common behavior.
 
 ## Default Behavior
 
-If the user asks for goal analysis, first produce candidate directions and ask for confirmation.
+Default to compiling the user's current idea into one preferred executable goal in the same turn.
 
-If the user already gives a clear target and asks to generate a goal, produce the final `/goal` directly.
+Use the current conversation first, then project evidence. Do not let filesystem discovery override fresh user intent, constraints, preferences, or corrections from the chat.
 
-If the user asks to execute the goal, do not treat this skill as permission to skip goal confirmation. Execute only when a final `/goal` has been confirmed and the user explicitly asks to run it. If the goal is missing or ambiguous, generate or restate the goal first and ask for confirmation.
+If the user asks for goal analysis, still recommend one primary executable goal unless the situation truly needs a choice. Use candidate directions only when the goal is conflicting, high-risk, under-specified in a way that blocks execution, or when the user explicitly asks to compare options.
+
+If the user already gives a clear target and asks to generate a goal, produce the final goal directly.
+
+If the user asks to execute the goal, do not treat this skill as permission to skip goal confirmation. Execute only when a final goal has been confirmed and the user explicitly asks to run it. If the goal is missing or ambiguous, generate or restate the goal first and ask for confirmation.
 
 During any execution handoff, stay inside the confirmed goal. Stop before destructive, irreversible, credential-related, external-write, or scope-expanding actions unless the user explicitly approves that specific action.
 
 ## Bounded Autonomy
 
-Codex `/goal` can keep working autonomously, but autonomy is not permission to ignore safety boundaries.
+An AI agent can keep working autonomously from a goal, but autonomy is not permission to ignore safety boundaries.
 
 Every generated goal must include operation constraints. Default constraints:
 
@@ -103,6 +111,7 @@ Apply the same rule to all external writes. If a goal would deploy, publish, sen
 
 Use available signals. Do not require all of them:
 
+- current conversation, including latest user goal, constraints, preferences, corrections, confirmed facts, implicit deliverables, and requested delivery style
 - project `AGENTS.md` / README / docs
 - directory structure
 - package or build files
@@ -166,17 +175,19 @@ For product ideas, generate a goal that prepares only the next product-delivery 
 - decide whether the idea should continue, revise, or stop
 - define a buildable product goal with validation
 
-Do not turn this skill into a product-methodology package. If the user wants deeper product brainstorming, product judgment, planning, QA, or release handoff, mention `products-skills` once as an optional follow-up and keep the generated goal usable with plain Codex.
+Do not turn this skill into a product-methodology package. If the user wants deeper product brainstorming, product judgment, planning, QA, or release handoff, mention `products-skills` once as an optional follow-up and keep the generated goal usable with any plain AI agent.
 
 ## Candidate Goal Output
 
-When direction is not confirmed, choose the smallest useful candidate format.
+Candidate output is the exception, not the default. Use it only when choosing the wrong direction would be likely or costly, when the user explicitly asks for alternatives, or when a missing critical input blocks a complete executable goal.
+
+When candidates are needed, choose the smallest useful candidate format.
 
 Match the user's language. Use Chinese labels for Chinese requests and English labels for English requests. Do not mix Chinese headings with English placeholder text.
 
-Use lightweight mode for small tasks, clear local asks, or low uncertainty: give one recommended direction and one backup direction.
+Use lightweight mode for explicit quick comparisons or moderate uncertainty: give one recommended direction and one backup direction.
 
-Use full mode for messy projects, product ideas, high uncertainty, release work, or conflicting signals: give 2-3 candidates.
+Use full mode for high uncertainty, high-risk delivery work, or conflicting signals: give 2-3 candidates.
 
 Chinese lightweight format:
 
@@ -191,7 +202,7 @@ Chinese lightweight format:
 - 备选：
 
 ### 需要你确认
-如果这个方向对，确认后我生成最终 `/goal`。
+如果这个方向对，确认后我生成最终 goal。
 ```
 
 English lightweight format:
@@ -207,7 +218,7 @@ English lightweight format:
 - Backup:
 
 ### Confirmation Needed
-If this direction looks right, confirm and I will generate the final `/goal`.
+If this direction looks right, confirm and I will generate the final goal.
 ```
 
 Chinese full format:
@@ -243,7 +254,7 @@ Chinese full format:
 - 风险：
 
 ### 需要你确认
-请选择 A / B，或告诉我你想优先达成的结果。确认后我再生成最终 `/goal`。
+请选择 A / B，或告诉我你想优先达成的结果。确认后我再生成最终 goal。
 ```
 
 English full format:
@@ -279,19 +290,19 @@ English full format:
 - Risk:
 
 ### Confirmation Needed
-Choose A / B, or tell me which outcome to prioritize. After confirmation I will generate the final `/goal`.
+Choose A / B, or tell me which outcome to prioritize. After confirmation I will generate the final goal.
 ```
 
 ## Final Goal Output
 
-When the direction is confirmed, output one executable goal:
+When the user's intent is clear enough, output one executable goal immediately:
 
 Match the user's language. For Chinese requests, use the Chinese skeleton. For English requests, use the English skeleton.
 
 Chinese skeleton:
 
 ```text
-/goal [目标类型]
+Goal: [目标类型]
 
 项目背景：
 - [项目类型、当前状态、关键证据]
@@ -332,7 +343,7 @@ Chinese skeleton:
 English skeleton:
 
 ```text
-/goal [Goal Type]
+Goal: [Goal Type]
 
 Background:
 - [project type, current state, key evidence]
@@ -383,10 +394,10 @@ If project evidence is missing or inaccessible, do not invent certainty.
 
 ## Goal Acceptance Checklist
 
-Before returning a final `/goal`, check that it includes:
+Before returning a final goal, check that it includes:
 
 - one concrete outcome, not a vague improvement theme
-- project or idea context grounded in visible evidence or user-provided facts
+- project or idea context grounded first in the current conversation, then in visible evidence or user-provided facts
 - explicit scope and non-goals
 - a local delivery path when GitHub or external services were not requested
 - operation boundaries for destructive, credential, global, and external-write actions
@@ -394,16 +405,18 @@ Before returning a final `/goal`, check that it includes:
 - validation standards using commands, artifacts, screenshots, source lists, manual review, or measurable checks
 - completion criteria the user can observe
 - stop conditions for missing inputs, high risk, external writes, irreversible actions, or scope conflicts
+- a minimum complete loop: investigate or inspect, implement or compose, validate, and summarize the deliverable result
 
 ## Quality Bar
 
 A good goal is:
 
 - specific enough to execute
-- small enough to finish
+- bounded enough to finish without drifting
+- complete enough to close a minimum complete loop, not merely a tiny TODO slice
 - clear about non-goals
 - clear about operation boundaries
-- tied to actual project evidence
+- tied to the current conversation and actual project evidence
 - validated by commands, artifacts, or review steps
 - explicit about when to stop and ask
 

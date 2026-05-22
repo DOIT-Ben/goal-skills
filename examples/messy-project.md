@@ -10,30 +10,34 @@
 ## Expected Behavior
 
 - Use `Discover / Map`.
-- Inspect only project signals such as README, rules, package files, folders, scripts, and current git state.
+- Treat the current conversation as the first input source: the user wants a goal, not file edits, and the project direction is unclear.
+- Inspect only project signals such as README, rules, package files, folders, scripts, and current git state after preserving that conversation intent.
 - Do not edit, format, commit, push, or create issues.
-- Return a lightweight or full candidate output depending on uncertainty.
+- Return one final discovery-first goal by default. Give candidates only if evidence reveals conflicting directions or a blocking missing input.
 
 ## Good Output Shape
 
 ```text
-### 当前判断
-- 当前阶段：Unknown / messy
-- 最大阻塞点：入口、验证命令和当前风险不清楚
+Goal: Discover / Map
 
-### 推荐方向
-- 首选：Discover / Map
-- 理由：先建立项目地图和验证路径，再决定修复或扩展
-- 备选：Repair / Restore
+项目背景：
+- 当前对话中，用户明确要求“先别改，先生成goal”。
+- 项目文件很多，下一步方向、入口和验证路径不清楚。
 
-### 需要你确认
-如果这个方向对，确认后我生成最终 `/goal`。
+目标：
+- 通过只读检查建立项目地图、关键入口、验证命令、当前风险和下一步建议。
+
+执行步骤：
+1. 读取项目规则、README、目录、脚本和可见产物。
+2. 梳理项目结构、入口、运行/测试/构建路径和阻塞点。
+3. 给出 2-3 个后续可执行 goal 建议。
+4. 总结证据、风险和建议优先级。
 ```
 
 ## Bad Output / Anti-Pattern
 
 ```text
-/goal Add / Extend
+Goal: Add / Extend
 
 我会直接新增功能、整理目录、修复启动问题，并提交推送。
 ```

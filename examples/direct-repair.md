@@ -8,15 +8,17 @@
 
 ## Expected Behavior
 
-- Return the final `/goal` directly.
+- Return the final goal directly.
+- Preserve the current conversation constraints before reading project files.
 - Include local-only delivery.
 - Explicitly exclude commit, push, issue, PR, release, deployment, and other external writes.
+- Include a minimum complete loop: inspect startup evidence, repair the startup path, validate health, and summarize results.
 - Include validation commands or a step to discover the correct validation path if unknown.
 
 ## Good Output Shape
 
 ```text
-/goal Repair / Restore
+Goal: Repair / Restore
 
 目标：
 - 修复本地启动流程，并验证 health 接口可用。
@@ -35,7 +37,7 @@
 ## Bad Output / Anti-Pattern
 
 ```text
-/goal Repair / Restore
+Goal: Repair / Restore
 
 修复启动、提交所有改动、推送到 GitHub，并顺手部署验证。
 ```

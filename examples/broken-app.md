@@ -9,14 +9,15 @@ convert task to goal: the app no longer starts locally. Fix only the startup pat
 ## Expected Behavior
 
 - Use `Repair / Restore`.
-- Generate a final `/goal` directly if the target is clear.
+- Generate a final goal directly if the target is clear.
+- Use the current conversation as the first input source: startup repair and health validation are the requested delivery, not broad refactor or deployment.
 - Keep delivery local unless the user asks for commit, push, PR, release, or deployment.
 - Include stop conditions before dependency installation, destructive git, external writes, or credential use.
 
 ## Good Output Shape
 
 ```text
-/goal Repair / Restore
+Goal: Repair / Restore
 
 Background:
 - The app startup path is broken or unverified.
@@ -36,7 +37,7 @@ Validation:
 ## Bad Output / Anti-Pattern
 
 ```text
-/goal Refactor / Reorganize
+Goal: Refactor / Reorganize
 
 重构启动架构，升级依赖，顺手整理配置，然后部署到线上。
 ```

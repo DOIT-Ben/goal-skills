@@ -1,24 +1,25 @@
 # Goal Skills
 
+> If your token budget is roomy enough, come play goal.
+> Let the agent do more than talk.
+
 [中文说明](README.md)
 
-> Stop letting AI jump straight into work. Teach it to write goals first.
-
-`goal-skills` is a lightweight skill for generating Codex `/goal` prompts.
+`goal-skills` is a goal compiler for AI agents: it extracts objectives, boundaries, and validation standards from the current conversation, project state, or product idea, then generates a goal an AI agent can carry to a deliverable result.
 
 The package name stays plural, but it exposes one public entry point: `goal-skills`.
 
 ## One-Liner
 
-Prepare a clear goal for Codex Goal mode so the AI can keep working toward a verifiable outcome instead of only answering one prompt.
+Compile the user's latest goal, constraints, preferences, and implicit deliverables into a bounded, verifiable AI task that can close a minimum complete loop.
 
-Exact behavior depends on the current Codex version and runtime. This skill generates bounded, verifiable `/goal` prompts; it does not guarantee that every platform executes them in the same way.
+Different agents have different execution mechanisms. This skill writes bounded, verifiable, portable goal briefs instead of binding the workflow to one platform.
 
-It works for existing projects and for early product ideas that need to become executable `/goal` prompts.
+It works for existing projects and for early product ideas that need to become executable agent goals.
 
-## What Is Codex Goal Mode
+## What Is An Agent Goal
 
-Codex `/goal` is an autonomous task mode: you give the AI a verifiable goal, and it typically keeps planning, acting, testing, reviewing, and iterating until the goal is complete, the budget is exhausted, or you stop it manually. Exact behavior depends on the Codex version and runtime you are using.
+An agent goal is an executable task brief for AI agents: you give the AI a verifiable target, and it can plan, act, test, review, and iterate until the target is complete, the budget is exhausted, or you stop it manually. In Codex it can be used as `/goal`; in Claude Code, Cursor, Devin, custom agents, or other tools that can read Markdown/rules, it can be used as a task brief or execution constraint.
 
 So a goal is not just “fix this.” It is closer to a task brief:
 
@@ -30,7 +31,7 @@ So a goal is not just “fix this.” It is closer to a task brief:
 
 ## What Happens After You Start A Goal
 
-After you start a `/goal`, Codex is no longer only answering one prompt. It keeps working around the goal you gave it. This skill helps define that work before it starts:
+After you hand a goal to an agent, the agent is no longer only answering one prompt. It keeps working around the goal you gave it. This skill helps define that work before it starts:
 
 - what to do first
 - what can and cannot be changed
@@ -52,11 +53,13 @@ Use a goal as the AI worker's boundary and completion standard:
 
 AI often wants to start working immediately. That sounds productive, but it can waste time when the direction is fuzzy.
 
-Generating a goal first clarifies direction, scope, validation, and stop conditions before Codex enters `/goal`. That makes the AI behave more like a persistent worker and less like a patch machine guessing its way through the project.
+Generating a goal first clarifies direction, scope, validation, and stop conditions before the agent starts execution. That makes the AI behave more like a persistent worker and less like a patch machine guessing its way through the project.
 
 Persistent work does not mean “anything goes.” A good goal also defines operation boundaries: do not delete core files, do not change global settings, do not expose secrets, do not assume commit/push, and stop before high-risk actions.
 
 ## What This Skill Does
+
+The first input source is the current conversation: the user's latest objective, constraints, preferences, corrections, confirmed facts, and implicit deliverables. Project files and runtime evidence refine the goal; they do not replace fresh conversation intent.
 
 `goal-skills` chooses the most suitable goal direction:
 
@@ -72,7 +75,7 @@ Persistent work does not mean “anything goes.” A good goal also defines oper
 - Release / Publish
 - Idea / Product Slice
 
-Then it generates a prompt suitable for Codex `/goal`.
+Then it generates one preferred executable goal by default. It returns candidate directions only when the target conflicts, risk is high, a critical input is missing, or the user explicitly asks to compare options.
 
 It is not a project-management template pack. It does not require status documents or heavyweight process files.
 
@@ -91,18 +94,23 @@ Trigger phrasing is intentionally narrow in both Chinese and English:
 - `把这个目标转成goal`
 - `先别改，先生成goal`
 - `generate a goal`
+- `agent goal`
+- `AI agent goal`
 - `set a goal for this project`
 - `convert this into a goal`
 - `Codex goal`
+- `Claude Code goal`
 - `/goal prompt`
 - `convert task to goal`
 - `plan before change`
 
-This is not a generic planning template. Trigger it when the user clearly wants a goal, a Codex `/goal`, a task-to-goal conversion, or a plan-before-change handoff.
+This is not a generic planning template. Trigger it when the user clearly wants a goal, an executable agent task, a task-to-goal conversion, or a plan-before-change handoff. `Codex goal`, `Claude Code goal`, and `/goal prompt` are compatibility triggers, not the capability boundary.
 
 ## Install
 
-Only Codex is verified today; Claude / Claude Code stay experimental.
+The core package is a portable Markdown skill. Any agent that can read `SKILL.md`, rule files, or task briefs can use it. Codex and Claude Code are only adapter examples below.
+
+Codex install example:
 
 ```powershell
 npx skills add https://github.com/DOIT-Ben/goal-skills -g -a codex -y --full-depth
@@ -114,36 +122,47 @@ For local development from the repository root:
 npx skills add . -g -a codex -y --full-depth
 ```
 
-Experimental Claude Code install:
+Claude Code install example:
 
 ```powershell
 npx skills add https://github.com/DOIT-Ben/goal-skills -g -a claude-code -y --full-depth
 ```
 
-Claude / Claude Code support is not part of the verified compatibility surface yet. Different platforms may read `SKILL.md`, `skill.json`, or plugin metadata differently; if triggering is unstable, use `$goal-skills` explicitly or include trigger phrases such as `/goal prompt` or `Codex goal`.
+Other agents can read [SKILL.md](SKILL.md), [references](references/), and [examples](examples/README.md) directly. If a platform does not support skills CLI, import `SKILL.md` as a rule or tool instruction.
 
 ## Examples
 
+- [examples index](examples/README.md)
 - [messy-project](examples/messy-project.md)
 - [broken-app](examples/broken-app.md)
 - [product-idea](examples/product-idea.md)
 - [direct-repair](examples/direct-repair.md)
+- [research-spec](examples/research-spec.md)
+- [create-from-zero](examples/create-from-zero.md)
+- [add-extend](examples/add-extend.md)
+- [refactor-reorganize](examples/refactor-reorganize.md)
+- [polish-improve](examples/polish-improve.md)
+- [automate-dry-run](examples/automate-dry-run.md)
+- [experiment-evaluate](examples/experiment-evaluate.md)
+- [release-publish](examples/release-publish.md)
+- [high-risk-external-write](examples/high-risk-external-write.md)
 
 ## Typical Use
 
 ```text
 $goal-skills
 
-先别改，先生成goal。
-请判断当前项目最适合的下一步 goal 类型，并给出 2-3 个候选方向。
+把这个目标转成goal：修复这个项目的本地启动流程，并验证 health 接口。
+请生成最终 goal，不要提交推送。
 ```
 
-Then:
+When the direction truly needs comparison:
 
 ```text
 $goal-skills
 
-选 A。请生成最终可执行 /goal。
+先别改，先生成goal。
+这个项目方向不确定，请先给 2-3 个候选方向和推荐选择。
 ```
 
 ## Package Shape
@@ -154,16 +173,25 @@ goal-skills/
   README.en.md
   SKILL.md
   skill.json
-  AGENTS.md
   references/
     goal-judgment-matrix.md
     goal-template.md
     example-walkthrough.md
   examples/
+    README.md
     messy-project.md
     broken-app.md
     product-idea.md
     direct-repair.md
+    research-spec.md
+    create-from-zero.md
+    add-extend.md
+    refactor-reorganize.md
+    polish-improve.md
+    automate-dry-run.md
+    experiment-evaluate.md
+    release-publish.md
+    high-risk-external-write.md
   evals/
     evals.json
 ```

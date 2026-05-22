@@ -6,6 +6,10 @@ node_modules/
 *.log
 *.tmp
 *.bak
+AGENTS.md_*.bak
+.codex/
+.agents/
+.claude/
 dist/
 coverage/
 graphify-out/

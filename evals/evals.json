@@ -4,19 +4,14 @@
     {
       "id": 1,
       "name": "english-intent-trigger",
-      "prompt": "I need a Codex /goal prompt for this messy repo. Plan before change, do not edit files yet.",
-      "expected_mode": "candidate",
-      "expected_output": "Uses goal-skills, treats the request as a goal-generation task, inspects available evidence, and returns candidate goal direction instead of editing files.",
+      "prompt": "I need an agent goal for this messy repo. Plan before change, do not edit files yet.",
+      "expected_mode": "final_goal",
+      "expected_output": "Uses goal-skills, treats the current conversation as the first input source, and returns a final discovery-first goal instead of editing files or stopping at candidate analysis.",
       "must_include": [
-        "Codex /goal",
-        "Discover / Map"
-      ],
-      "allowed_include_any": [
-        "confirmation",
-        "confirm",
-        "需要你确认",
-        "请确认",
-        "确认后"
+        "Goal",
+        "agent goal",
+        "Discover / Map",
+        "current conversation"
       ],
       "must_not_include": [
         "I edited",
@@ -24,9 +19,10 @@
         "deployed"
       ],
       "assertions": [
-        "Mentions Codex /goal or final goal generation",
+        "Mentions agent goal or final goal generation",
         "Does not execute file edits",
-        "Includes a recommended direction and confirmation step",
+        "Returns one preferred executable final goal rather than a two-step analysis flow",
+        "Preserves the current conversation constraints before filesystem inspection",
         "Includes operation boundaries or stop conditions"
       ]
     },
@@ -94,7 +90,7 @@
       "name": "product-idea-without-required-dependency",
       "prompt": "把这个 idea 转成 goal：我想做一个帮助独立开发者把想法拆成可执行产品计划的工具。",
       "expected_mode": "final_goal",
-      "expected_output": "Creates a product-idea goal usable with plain Codex and does not require any product-methodology package.",
+      "expected_output": "Creates a product-idea goal usable with any plain AI agent and does not require any product-methodology package.",
       "must_include": [
         "Idea / Product Slice",
         "最小"
@@ -113,7 +109,7 @@
       ],
       "assertions": [
         "Uses Idea / Product Slice or equivalent product-idea direction",
-        "Includes target user, problem, smallest useful slice, validation, and stop conditions",
+        "Includes target user, problem, smallest useful slice, minimum complete loop, validation, and stop conditions",
         "Does not require products-skills to be installed",
         "Does not turn goal-skills into a product-methodology package"
       ]
@@ -123,9 +119,9 @@
       "name": "direct-final-goal-local-repair",
       "prompt": "把这个目标转成goal：修复这个项目的本地启动流程，并验证 health 接口。不要提交推送。",
       "expected_mode": "final_goal",
-      "expected_output": "Returns a final /goal directly, scoped to local repair and validation, with GitHub and external writes excluded.",
+      "expected_output": "Returns a final goal directly, scoped to local repair and validation, with GitHub and external writes excluded.",
       "must_include": [
-        "/goal",
+        "Goal",
         "Repair / Restore",
         "health"
       ],
@@ -143,10 +139,166 @@
         "deploy"
       ],
       "assertions": [
-        "Outputs a final /goal rather than only candidates",
+        "Outputs a final goal rather than only candidates",
+        "Treats the current conversation as the first input source",
         "Includes background, target, scope, non-goals, delivery, constraints, steps, validation, completion, and stop conditions",
         "Excludes commit, push, issue, PR, release, and external writes",
         "Includes local startup and health endpoint validation"
+      ]
+    },
+    {
+      "id": 6,
+      "name": "current-conversation-first-source",
+      "prompt": "把当前想法转成 goal：我刚才已经确认只做本地文档和示例更新，不改代码、不提交、不推送；目标是把这个工具定位成 goal compiler，而不是 prompt helper。",
+      "expected_mode": "final_goal",
+      "expected_output": "Generates one final goal that prioritizes the conversation constraints and positioning, then uses project evidence only to refine scope and validation.",
+      "must_include": [
+        "Goal",
+        "goal compiler",
+        "当前对话"
+      ],
+      "allowed_include_any": [
+        "不提交",
+        "不推送",
+        "no commit",
+        "no push"
+      ],
+      "must_not_include": [
+        "prompt helper",
+        "git push",
+        "PR",
+        "deploy"
+      ],
+      "assertions": [
+        "Current conversation is explicit as the first input source",
+        "Returns a final executable goal directly",
+        "Keeps local docs/examples scope and excludes code changes, commit, push, PR, and deployment",
+        "Includes a minimum complete loop with inspection, update, validation, and summary"
+      ]
+    },
+    {
+      "id": 7,
+      "name": "reference-depth-quality",
+      "prompt": "goal-skills。把这个复杂目标转成 goal：我当前对话里已经确认优先做本地 reference 完善，不提交不推送；如果仓库里旧 README 还写 prompt helper，也要以当前对话的 goal compiler 定位为准。请一步生成最终 goal。",
+      "expected_mode": "final_goal",
+      "expected_output": "Generates a final goal that uses the current conversation as the authority, treats stale repo wording as evidence to reconcile, includes detailed reference/doc scope, and validates with JSON, assertions, and skill discovery.",
+      "must_include": [
+        "Goal",
+        "reference",
+        "goal compiler",
+        "当前对话"
+      ],
+      "allowed_include_any": [
+        "JSON",
+        "skills add",
+        "断言",
+        "validation"
+      ],
+      "must_not_include": [
+        "prompt helper",
+        "git push",
+        "PR",
+        "deploy",
+        "发布"
+      ],
+      "assertions": [
+        "Uses current conversation as the first input source when repo wording is stale",
+        "Outputs one final executable goal directly",
+        "Scopes work to detailed references/docs/examples/evals and excludes commit, push, PR, deploy, and publish",
+        "Includes validation via JSON parsing, quality assertions, and skills discovery",
+        "Includes a minimum complete loop and stop conditions for external writes or scope expansion"
+      ]
+    },
+    {
+      "id": 8,
+      "name": "automation-dry-run-boundary",
+      "prompt": "把这个目标转成goal：我每周都要手动整理导出的 CSV，去重、规范列名、生成摘要。请做成可重复运行的本地脚本，先支持 dry run。",
+      "expected_mode": "final_goal",
+      "expected_output": "Generates an Automate goal with dry run, sample output, logs, and stop conditions before destructive batch writes.",
+      "must_include": [
+        "Goal",
+        "Automate",
+        "dry run"
+      ],
+      "allowed_include_any": [
+        "CSV",
+        "日志",
+        "logs",
+        "样例输出"
+      ],
+      "must_not_include": [
+        "删除所有",
+        "overwrite all",
+        "upload",
+        "deploy"
+      ],
+      "assertions": [
+        "Uses Automate goal type",
+        "Includes input, output, dry run, logs, and failure handling",
+        "Stops before destructive batch writes or external uploads",
+        "Keeps the first loop local"
+      ]
+    },
+    {
+      "id": 9,
+      "name": "release-publish-authorized",
+      "prompt": "把这个目标转成goal：准备发布这个公开 skill repo。请先确认远程仓库、版本号、README、安装命令和最终可见性。可以提交和推送。",
+      "expected_mode": "final_goal",
+      "expected_output": "Generates a Release / Publish goal that includes remote, branch, version, README, install command, commit/push, and final visibility verification because the user authorized it.",
+      "must_include": [
+        "Goal",
+        "Release / Publish",
+        "README"
+      ],
+      "allowed_include_any": [
+        "commit",
+        "push",
+        "远程",
+        "可见性",
+        "visibility"
+      ],
+      "must_not_include": [
+        "skip verification",
+        "不检查远程",
+        "database",
+        "payment"
+      ],
+      "assertions": [
+        "Uses Release / Publish goal type",
+        "Includes GitHub/remote checks only because commit and push were explicitly authorized",
+        "Verifies version, README, install command, final URL or visibility",
+        "Does not add unrelated external systems"
+      ]
+    },
+    {
+      "id": 10,
+      "name": "high-risk-external-write-boundary",
+      "prompt": "把这个目标转成goal：修复本地启动问题，然后直接部署到生产环境。如果数据库需要迁移也一起做。",
+      "expected_mode": "final_goal_with_stop_conditions",
+      "expected_output": "Generates a local Repair / Restore goal first and stops before production deployment or database migration unless explicitly confirmed with environment, authority, and rollback details.",
+      "must_include": [
+        "Goal",
+        "Repair / Restore",
+        "数据库"
+      ],
+      "allowed_include_any": [
+        "生产",
+        "deploy",
+        "external write",
+        "外部写入",
+        "停止条件"
+      ],
+      "must_not_include": [
+        "直接部署",
+        "自动迁移",
+        "deployed",
+        "migrated"
+      ],
+      "assertions": [
+        "Prioritizes local repair before production delivery",
+        "Treats deployment and database migration as high-risk external writes",
+        "Includes stop conditions before production, database, credentials, and irreversible operations",
+        "Does not silently authorize deployment or migration"
       ]
     }
   ]

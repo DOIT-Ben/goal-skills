@@ -1,7 +1,7 @@
 {
   "name": "goal-skills",
-  "version": "1.1.0",
-  "description": "Generate scoped, verifiable Codex /goal prompts from projects, product ideas, and rough targets.",
+  "version": "1.1.1",
+  "description": "Compile the current conversation, project state, or product idea into an executable goal for AI agents.",
   "author": {
     "name": "DOIT-Ben"
   },
@@ -10,8 +10,11 @@
   "license": "MIT",
   "keywords": [
     "goal",
+    "agent-goal",
+    "ai-agent",
     "codex-goal",
     "project-goal",
+    "goal-compiler",
     "product-idea",
     "idea-to-product",
     "prompt",
@@ -21,8 +24,8 @@
   "skills": "./",
   "interface": {
     "displayName": "Goal Skills",
-    "shortDescription": "Generate a project-aware Codex /goal.",
-    "longDescription": "Turns a project, product idea, current problem, or rough target into a bounded and verifiable Codex /goal by choosing the right direction first.",
+    "shortDescription": "Compile an executable agent goal.",
+    "longDescription": "Turns the current conversation, project state, or product idea into one bounded, verifiable AI-agent goal that can close a minimum complete loop.",
     "developerName": "DOIT-Ben",
     "category": "Productivity",
     "capabilities": [
@@ -38,9 +41,12 @@
       "把这个目标转成goal",
       "先别改，先生成goal",
       "generate a goal",
+      "agent goal",
+      "AI agent goal",
       "set a goal for this project",
       "convert this into a goal",
       "Codex goal",
+      "Claude Code goal",
       "/goal prompt",
       "convert task to goal",
       "plan before change"

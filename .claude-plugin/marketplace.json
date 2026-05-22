@@ -5,22 +5,25 @@
     "name": "DOIT-Ben"
   },
   "metadata": {
-    "description": "Generate scoped, verifiable Codex /goal prompts from projects, product ideas, and rough targets.",
-    "version": "1.1.0"
+    "description": "Compile the current conversation, project state, or product idea into an executable goal for AI agents.",
+    "version": "1.1.1"
   },
   "plugins": [
     {
       "name": "goal-skills",
       "source": "./",
-      "description": "Lightweight goal prompt generation for project-aware and idea-to-product Codex work.",
-      "version": "1.1.0",
+      "description": "Goal compiler for conversation-first, project-aware, and idea-to-product work across AI agents.",
+      "version": "1.1.1",
       "author": {
         "name": "DOIT-Ben"
       },
       "keywords": [
         "goal",
+        "agent-goal",
+        "ai-agent",
         "codex-goal",
         "project-goal",
+        "goal-compiler",
         "product-idea",
         "idea-to-product",
         "prompt",
@@ -29,7 +32,7 @@
       ],
       "category": "productivity",
       "strict": false,
-      "supportStatus": "experimental"
+      "supportStatus": "supported"
     }
   ]
 }

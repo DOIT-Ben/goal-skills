@@ -10,19 +10,20 @@
 
 - Use `Idea / Product Slice`.
 - Do not assume an existing codebase.
-- Generate a goal for the smallest useful product slice, not a full product methodology.
+- Treat the current conversation as the first input source: extract the idea, target user hint, desired outcome, and implicit deliverable.
+- Generate a final goal for the minimum complete product-slice loop, not a full product methodology.
 - Keep product-methodology work out of scope unless the user asks for it.
 
 ## Good Output Shape
 
 ```text
-/goal Idea / Product Slice
+Goal: Idea / Product Slice
 
 项目背景：
 - 用户有一个产品 idea，但还没有明确的最小切片和验证方式。
 
 目标：
-- 明确目标用户、核心问题、最小可落地切片、验证方式和下一道 gate。
+- 明确目标用户、核心问题、最小可落地切片、验证方式和下一道 gate，形成从澄清到可检查产物的最小完整闭环。
 
 非目标：
 - 不直接实现完整产品。
@@ -36,7 +37,7 @@
 ## Bad Output / Anti-Pattern
 
 ```text
-/goal Create From Zero
+Goal: Create From Zero
 
 直接搭建完整 SaaS，包含登录、支付、团队协作、后台管理和上线发布。
 ```

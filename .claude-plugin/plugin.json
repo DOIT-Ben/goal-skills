@@ -1,8 +1,8 @@
 {
   "name": "goal-skills",
-  "description": "Generate scoped, verifiable Codex /goal prompts from projects, product ideas, and rough targets.",
-  "version": "1.1.0",
-  "supportStatus": "experimental",
+  "description": "Compile the current conversation, project state, or product idea into an executable goal for AI agents.",
+  "version": "1.1.1",
+  "supportStatus": "supported",
   "author": {
     "name": "DOIT-Ben"
   },
@@ -11,8 +11,11 @@
   "license": "MIT",
   "keywords": [
     "goal",
+    "agent-goal",
+    "ai-agent",
     "codex-goal",
     "project-goal",
+    "goal-compiler",
     "product-idea",
     "idea-to-product",
     "prompt",
