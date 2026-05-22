@@ -28,6 +28,26 @@ So a goal is not just “fix this.” It is closer to a task brief:
 - how completion should be verified
 - when the AI should stop and ask the user
 
+## What Happens After You Start A Goal
+
+After you start a `/goal`, Codex is no longer only answering one prompt. It keeps working around the goal you gave it. This skill helps define that work before it starts:
+
+- what to do first
+- what can and cannot be changed
+- what commands, artifacts, or evidence should verify completion
+- when the AI should stop and ask you
+
+The value of a goal is not pretty wording. The value is turning a fuzzy request into executable, verifiable work that can actually be closed.
+
+## What Goals Are Useful For
+
+Use a goal as the AI worker's boundary and completion standard:
+
+- map a project before changing it
+- turn repair, refactor, release, automation, and evaluation work into finishable slices
+- make risky actions explicit, such as deleting files, changing global config, pushing, publishing, or writing to external systems
+- make the final result verifiable instead of ending at “seems fine”
+
 ## Why Generate a Goal First
 
 AI often wants to start working immediately. That sounds productive, but it can waste time when the direction is fuzzy.
@@ -101,6 +121,13 @@ npx skills add https://github.com/DOIT-Ben/goal-skills -g -a claude-code -y --fu
 ```
 
 Claude / Claude Code support is not part of the verified compatibility surface yet. Different platforms may read `SKILL.md`, `skill.json`, or plugin metadata differently; if triggering is unstable, use `$goal-skills` explicitly or include trigger phrases such as `/goal prompt` or `Codex goal`.
+
+## Examples
+
+- [messy-project](examples/messy-project.md)
+- [broken-app](examples/broken-app.md)
+- [product-idea](examples/product-idea.md)
+- [direct-repair](examples/direct-repair.md)
 
 ## Typical Use
 

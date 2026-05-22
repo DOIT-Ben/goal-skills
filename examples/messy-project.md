@@ -29,3 +29,18 @@
 ### 需要你确认
 如果这个方向对，确认后我生成最终 `/goal`。
 ```
+
+## Bad Output / Anti-Pattern
+
+```text
+/goal Add / Extend
+
+我会直接新增功能、整理目录、修复启动问题，并提交推送。
+```
+
+Why it is bad:
+
+- Chooses feature work before understanding the project.
+- Mixes discovery, repair, refactor, and publishing in one goal.
+- Starts changing files even though the user said "先别改".
+- Assumes commit/push without permission.

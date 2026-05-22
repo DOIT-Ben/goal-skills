@@ -2,7 +2,7 @@
   "name": "goal-skills",
   "displayName": "Goal Skills",
   "description": "A lightweight skill for turning a project, product idea, current problem, or rough target into a scoped and verifiable Codex /goal prompt.",
-  "version": "0.2.2",
+  "version": "1.1.0",
   "author": "DOIT-Ben",
   "license": "MIT",
   "homepage": "https://github.com/DOIT-Ben/goal-skills",

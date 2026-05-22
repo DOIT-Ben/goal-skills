@@ -18,7 +18,7 @@ jobs:
           node-version: "22"
 
       - name: Validate JSON metadata
-        run: node -e "const fs=require('fs'); for (const f of ['skill.json','.codex-plugin/plugin.json','.claude-plugin/plugin.json','.claude-plugin/marketplace.json','evals/evals.json']) JSON.parse(fs.readFileSync(f,'utf8')); const evals=JSON.parse(fs.readFileSync('evals/evals.json','utf8')).evals; for (const e of evals) { for (const k of ['expected_mode','must_include','must_not_include']) if (!(k in e)) throw new Error(e.name + ' missing ' + k); }"
+        run: node -e "const fs=require('fs'); for (const f of ['skill.json','.codex-plugin/plugin.json','.claude-plugin/plugin.json','.claude-plugin/marketplace.json','evals/evals.json']) JSON.parse(fs.readFileSync(f,'utf8')); const evals=JSON.parse(fs.readFileSync('evals/evals.json','utf8')).evals; for (const e of evals) { for (const k of ['expected_mode','must_include','must_not_include','allowed_include_any']) if (!(k in e)) throw new Error(e.name + ' missing ' + k); }"
 
       - name: Verify skill discovery
         run: npx --yes skills add . --list --full-depth

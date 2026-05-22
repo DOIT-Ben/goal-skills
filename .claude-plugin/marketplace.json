@@ -6,14 +6,14 @@
   },
   "metadata": {
     "description": "Generate scoped, verifiable Codex /goal prompts from projects, product ideas, and rough targets.",
-    "version": "0.2.2"
+    "version": "1.1.0"
   },
   "plugins": [
     {
       "name": "goal-skills",
       "source": "./",
       "description": "Lightweight goal prompt generation for project-aware and idea-to-product Codex work.",
-      "version": "0.2.2",
+      "version": "1.1.0",
       "author": {
         "name": "DOIT-Ben"
       },

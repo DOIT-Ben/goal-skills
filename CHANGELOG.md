@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.1.0 - 2026-05-22
+
+- Expanded README guidance to explain what happens after starting a `/goal` and what goals are useful for.
+- Promoted package metadata back to the 1.x line to avoid version rollback after earlier public 1.x exposure.
+- Added bad-output anti-patterns to public examples.
+- Added `allowed_include_any` eval fields to reduce brittle string matching across Chinese and English outputs.
+
 ## 0.2.2 - 2026-05-22
 
 - Added language-matched Chinese and English candidate/final goal templates.

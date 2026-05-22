@@ -31,3 +31,18 @@
 停止条件：
 - 需要安装依赖、改全局配置、处理密钥、执行破坏性命令或外部写入时先确认。
 ```
+
+## Bad Output / Anti-Pattern
+
+```text
+/goal Repair / Restore
+
+修复启动、提交所有改动、推送到 GitHub，并顺手部署验证。
+```
+
+Why it is bad:
+
+- Violates the user's "不要提交推送" instruction.
+- Adds external write and deployment work.
+- Does not keep delivery local.
+- Fails to stop before high-risk or unauthorized actions.

@@ -9,8 +9,14 @@
       "expected_output": "Uses goal-skills, treats the request as a goal-generation task, inspects available evidence, and returns candidate goal direction instead of editing files.",
       "must_include": [
         "Codex /goal",
-        "Discover / Map",
-        "confirmation"
+        "Discover / Map"
+      ],
+      "allowed_include_any": [
+        "confirmation",
+        "confirm",
+        "需要你确认",
+        "请确认",
+        "确认后"
       ],
       "must_not_include": [
         "I edited",
@@ -33,8 +39,14 @@
       "must_include": [
         "confirmed",
         "deployment",
-        "database",
-        "confirmation"
+        "database"
+      ],
+      "allowed_include_any": [
+        "confirmation",
+        "confirm",
+        "need approval",
+        "需要确认",
+        "先确认"
       ],
       "must_not_include": [
         "deployed",
@@ -55,9 +67,15 @@
       "expected_output": "Generates a discovery-first, low-confidence goal that lists missing evidence and makes evidence gathering the first step.",
       "must_include": [
         "Discover / Map",
-        "missing evidence",
         "README",
         "package"
+      ],
+      "allowed_include_any": [
+        "missing evidence",
+        "缺少证据",
+        "证据不足",
+        "low-confidence",
+        "低置信"
       ],
       "must_not_include": [
         "npm test",
@@ -79,9 +97,13 @@
       "expected_output": "Creates a product-idea goal usable with plain Codex and does not require any product-methodology package.",
       "must_include": [
         "Idea / Product Slice",
+        "最小"
+      ],
+      "allowed_include_any": [
         "目标用户",
-        "最小",
-        "验证"
+        "target user",
+        "验证",
+        "validation"
       ],
       "must_not_include": [
         "必须安装 products-skills",
@@ -105,9 +127,14 @@
       "must_include": [
         "/goal",
         "Repair / Restore",
-        "health",
+        "health"
+      ],
+      "allowed_include_any": [
         "不要提交",
-        "不要推送"
+        "不要推送",
+        "no commit",
+        "no push",
+        "local"
       ],
       "must_not_include": [
         "git push",

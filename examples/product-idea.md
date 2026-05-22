@@ -32,3 +32,18 @@
 - 产出一个可执行产品切片说明。
 - 写明目标用户、核心场景、成功标准和停止条件。
 ```
+
+## Bad Output / Anti-Pattern
+
+```text
+/goal Create From Zero
+
+直接搭建完整 SaaS，包含登录、支付、团队协作、后台管理和上线发布。
+```
+
+Why it is bad:
+
+- Treats an idea as a full product build.
+- Skips target user, problem scenario, smallest slice, and evidence gate.
+- Adds release and payment scope that the user did not request.
+- Turns goal-skills into product-methodology work instead of goal generation.

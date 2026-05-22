@@ -32,3 +32,18 @@ Validation:
 - Run the local start command or documented equivalent.
 - Check the health endpoint and report the exact command/result.
 ```
+
+## Bad Output / Anti-Pattern
+
+```text
+/goal Refactor / Reorganize
+
+重构启动架构，升级依赖，顺手整理配置，然后部署到线上。
+```
+
+Why it is bad:
+
+- Refactors before restoring the broken baseline.
+- Expands scope beyond startup repair.
+- Adds dependency and deployment risk without user approval.
+- Does not define a local health-check validation path.
