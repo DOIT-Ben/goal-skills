@@ -34,6 +34,8 @@ Keep the package lightweight.
 - Do not expose separate child skills unless the user explicitly asks for that structure.
 - Put supporting material under `references/`.
 - Keep `goal-skills` as the single stable entry point.
+- Do not assume GitHub, commits, pushes, issues, PRs, or releases when generating goals.
+- Generated goals must include operation boundaries and stop conditions for destructive, external, credential-related, or irreversible actions.
 
 ## Validation
 

@@ -28,6 +28,8 @@ AI often wants to start working immediately. That sounds productive, but it can 
 
 Generating a goal first clarifies direction, scope, validation, and stop conditions before Codex enters `/goal`. That makes the AI behave more like a persistent worker and less like a patch machine guessing its way through the project.
 
+Persistent work does not mean “anything goes.” A good goal also defines operation boundaries: do not delete core files, do not change global settings, do not expose secrets, do not assume commit/push, and stop before high-risk actions.
+
 ## What This Skill Does
 
 `goal-skills` chooses the most suitable goal direction:
@@ -46,6 +48,8 @@ Generating a goal first clarifies direction, scope, validation, and stop conditi
 Then it generates a prompt suitable for Codex `/goal`.
 
 It is not a project-management template pack. It does not require status documents or heavyweight process files.
+
+It also does not assume GitHub. Without GitHub, the goal can use local validation, artifacts, logs, or a summary as the delivery path. Commit, push, issues, PRs, and releases are included only when the user explicitly asks for them.
 
 ## Trigger Phrases
 

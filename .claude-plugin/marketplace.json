@@ -6,14 +6,14 @@
   },
   "metadata": {
     "description": "Generate scoped, verifiable Codex /goal prompts from project context.",
-    "version": "1.0.0"
+    "version": "1.0.1"
   },
   "plugins": [
     {
       "name": "goal-skills",
       "source": "./",
       "description": "Lightweight goal prompt generation for project-aware Codex work.",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "DOIT-Ben"
       },

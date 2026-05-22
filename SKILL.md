@@ -46,6 +46,32 @@ If the user already gives a clear target and asks to generate a goal, produce th
 
 If the user asks to execute the goal, restate the goal briefly, then execute and validate using the project context.
 
+## Bounded Autonomy
+
+Codex `/goal` can keep working autonomously, but autonomy is not permission to ignore safety boundaries.
+
+Every generated goal must include operation constraints. Default constraints:
+
+- Do not delete, overwrite, or mass-move source code, project rules, datasets, model files, generated deliverables, or configuration files unless the user explicitly asks for that specific operation.
+- Do not run destructive commands such as `git reset --hard`, forced checkout, recursive delete, database wipe, secret rotation, or bulk formatting without explicit approval.
+- Do not expose, print, commit, or hard-code secrets, tokens, private accounts, or credentials.
+- Do not change global machine settings, scheduled tasks, system services, shell profiles, package managers, or external accounts unless the goal explicitly requires it.
+- Do not broaden scope into unrelated refactors, redesigns, dependency swaps, or cleanup.
+- Preserve user changes. If the worktree is dirty, inspect and work around unrelated changes instead of reverting them.
+- Stop and ask when a required action is irreversible, high-risk, credential-related, destructive, or outside the confirmed goal.
+
+## GitHub And Delivery Assumptions
+
+Do not assume the user has GitHub, git remotes, issues, PRs, or permission to push.
+
+When generating a goal:
+
+- If no git repository exists, use local validation, artifacts, logs, or a summary as the default completion path.
+- If git exists but the user did not request commit/push, do not include commit, push, issue creation, or PR creation in the goal.
+- If the user asks for version control, include local `git status`, intentional staging, and a commit only after scope is clear.
+- If the user explicitly asks for GitHub release, issue submission, PR, or push, include GitHub checks such as remote, branch, auth, visibility, and final URL verification.
+- If GitHub is unavailable, replace GitHub delivery with a local handoff package, patch summary, checklist, or manual commands.
+
 ## What To Inspect
 
 Use available signals. Do not require all of them:
@@ -58,6 +84,7 @@ Use available signals. Do not require all of them:
 - recent logs or errors
 - visible deliverables
 - user-provided target or complaint
+- git status and remote only when version control or publishing is relevant
 
 During diagnosis, do not modify files unless the user explicitly asks for execution.
 
@@ -154,8 +181,12 @@ When the direction is confirmed, output one executable goal:
 非目标：
 - [what not to do]
 
+交付方式：
+- [local artifact / summary / commit / PR / release; do not assume GitHub]
+
 约束：
 - [style, safety, project rules, no unrelated refactor, no secrets, etc.]
+- [operation boundaries: no destructive edits, no deleting core files, no credential exposure, no global changes]
 
 执行步骤：
 1. [inspect]
@@ -171,6 +202,7 @@ When the direction is confirmed, output one executable goal:
 
 停止条件：
 - [when to ask user instead of guessing]
+- [destructive/high-risk/irreversible/GitHub or credential action needs confirmation]
 ```
 
 ## Quality Bar
@@ -180,6 +212,7 @@ A good goal is:
 - specific enough to execute
 - small enough to finish
 - clear about non-goals
+- clear about operation boundaries
 - tied to actual project evidence
 - validated by commands, artifacts, or review steps
 - explicit about when to stop and ask

@@ -46,3 +46,24 @@ Media / design:
 
 Deployment / delivery:
 - include env vars without secrets, build/start/export, health check, rollback, handoff notes.
+
+## Delivery Surface
+
+Do not assume GitHub.
+
+| User/project context | Delivery surface |
+| --- | --- |
+| No git repository | local artifact, summary, generated files, logs, manual checklist |
+| Git repository exists, no publish request | local validation and summary; no commit/push by default |
+| User asks to commit | inspect dirty tree, stage intentional files, commit with clear scope |
+| User asks to push / PR / issues | verify remote, branch, auth, target repo, visibility, and final URL |
+| GitHub unavailable | local patch summary, zip/handoff package, or manual command checklist |
+
+## Operation Boundary Defaults
+
+- No destructive commands without explicit approval.
+- No deleting, overwriting, or bulk-moving core files without explicit approval.
+- No credential exposure or hard-coded secrets.
+- No unrelated refactor, dependency swap, redesign, or cleanup.
+- No global machine, account, service, or scheduled-task changes unless the goal explicitly requires it.
+- Stop and ask before irreversible actions or external writes.

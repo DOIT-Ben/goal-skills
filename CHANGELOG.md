@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.1 - 2026-05-22
+
+- Clarified that GitHub delivery is optional and must not be assumed.
+- Added default operation boundaries for destructive, credential, global, and external-write actions.
+- Expanded the goal template with delivery surface, safety constraints, and stop conditions.
+
 ## 1.0.0 - 2026-05-22
 
 - Initial public release.
