@@ -6,6 +6,7 @@ node_modules/
 *.log
 *.tmp
 *.bak
+AGENTS.md
 AGENTS.md_*.bak
 .codex/
 .agents/
