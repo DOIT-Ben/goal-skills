@@ -495,6 +495,39 @@
         "Does not stop after providing a roadmap or recommended minimum next step",
         "Keeps true stop conditions for out-of-goal actions, destructive operations, credentials, unauthorized external writes, rule conflicts, or repeated validation failure"
       ]
+    },
+    {
+      "id": 17,
+      "name": "one-small-step-is-not-completion",
+      "prompt": "他又停了：还差 Supervisor、会话历史、模型层、Runtime、外部依赖和交付体验；刚才只把 Everything doctor 建议改了一小步。为啥不接着做？",
+      "expected_mode": "revise_prompt_small_step_continuation_rule",
+      "expected_output": "Recognizes that advancing one small safe fix is not completion for a long-horizon goal when a remaining gap list still exists. The generated or revised prompt must require the agent to validate that fix, update the remaining gap list, choose the next safe high-value item, and continue.",
+      "must_include": [
+        "一小步",
+        "不是完成",
+        "剩余缺口",
+        "继续"
+      ],
+      "allowed_include_any": [
+        "Supervisor",
+        "会话历史",
+        "模型层",
+        "Runtime",
+        "Everything",
+        "最高价值"
+      ],
+      "must_not_include": [
+        "推进一小步即可停止",
+        "剩余路线图交给用户",
+        "建议后续再做",
+        "等待用户决定下一项"
+      ],
+      "assertions": [
+        "Treats a single small fix as a continuation trigger when safe high-value gaps remain",
+        "Requires validation of the small fix before moving on",
+        "Requires updating the remaining gap list and selecting the next safe high-value item",
+        "Does not stop after handing back the remaining roadmap"
+      ]
     }
   ]
 }

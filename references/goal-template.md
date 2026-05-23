@@ -8,7 +8,7 @@ Start from the current conversation. The user's latest goal, constraints, prefer
 
 Match the user's language. Use the Chinese skeleton for Chinese requests and the English skeleton for English requests.
 
-The final artifact should be a copy-pasteable prompt for another AI agent. It should not read like an internal analysis report. Start with the target, then force long-horizon execution: analyze intent, inspect project state, infer the mature target, execute loops, validate, and continue until complete or stopped by an explicit safety condition. Phase completion is not completion; it should trigger the next phase. Read-only analysis and analysis documents are not completion; they should trigger concrete execution from the findings unless the goal explicitly says read-only only.
+The final artifact should be a copy-pasteable prompt for another AI agent. It should not read like an internal analysis report. Start with the target, then force long-horizon execution: analyze intent, inspect project state, infer the mature target, execute loops, validate, and continue until complete or stopped by an explicit safety condition. Phase completion is not completion; it should trigger the next phase. Read-only analysis and analysis documents are not completion; they should trigger concrete execution from the findings unless the goal explicitly says read-only only. One small fix is not completion; it should trigger the next safe high-value item.
 
 Keep anything outside the prompt minimal. For normal use, write one sentence and then the code block. If project orientation matters, include at most 3 short bullets before the code block. Do not include audit logs, command results, graph node counts, test counts, git status, project ratings, or old-style `Goal: [type]` documents before or after the prompt.
 
@@ -36,10 +36,10 @@ Keep anything outside the prompt minimal. For normal use, write one sentence and
 三、持续执行循环
 1. 观察：读取证据，确认当前状态和最值得推进的问题。
 2. 判断：选择对长期目标最有价值、风险最低的下一步。
-3. 行动：完成一个真实推进项目价值的改动、文档、验证、修复、原型、脚本或交付物。只读全项目分析、只写分析报告、路线图、dev-record、索引或代码地图不算完成；写完后必须从发现的问题里选一个最高价值且安全的执行项继续推进。
+3. 行动：完成一个真实推进项目价值的改动、文档、验证、修复、原型、脚本或交付物。只读全项目分析、只写分析报告、路线图、dev-record、索引或代码地图不算完成；只推进一个小修复也不算完成。每次小修后必须验证、更新剩余缺口列表，并继续选择下一个最高价值且安全的执行项。
 4. 验证：运行可用的测试、构建、脚本、检查、截图、人工复核或产物验证。
 5. 复盘：说明完成了什么、验证结果、剩余风险、项目离终极目标近了多少。
-6. 继续：如果没有触发停止条件，自动选择下一步并继续工作。完成 Phase 1、完成一个最小闭环、写出下一阶段建议、完成只读分析、沉淀一份分析文档，都不是停止理由；这些只意味着你应该进入下一阶段或执行分析中发现的最高价值安全事项。
+6. 继续：如果没有触发停止条件，自动选择下一步并继续工作。完成 Phase 1、完成一个最小闭环、写出下一阶段建议、完成只读分析、沉淀一份分析文档、推进了一小步，都不是停止理由；这些只意味着你应该进入下一阶段或执行剩余缺口中的最高价值安全事项。
 
 四、执行约束
 - 保持外科式改动，不做与目标无关的重构、换栈、批量格式化或清理。
@@ -90,10 +90,10 @@ Do not stop working until this goal is complete. Keep analyzing, executing, vali
 3. Continuous execution loop
 1. Observe: read evidence and identify the most valuable current problem.
 2. Decide: choose the next step with the best long-term value and acceptable risk.
-3. Act: complete one real value-advancing change, doc, validation, fix, prototype, script, or deliverable. Read-only whole-project analysis, a report, roadmap, dev record, index update, or codebase map alone is not completion; after producing it, choose the highest-value safe action from the findings and continue.
+3. Act: complete one real value-advancing change, doc, validation, fix, prototype, script, or deliverable. Read-only whole-project analysis, a report, roadmap, dev record, index update, codebase map, or one small fix alone is not completion; after producing it, validate, update the remaining gap list, choose the highest-value safe action from the findings, and continue.
 4. Validate: run available tests, builds, scripts, checks, screenshots, manual review, or artifact validation.
 5. Review: summarize what changed, validation results, residual risk, and how much closer the project is to the ultimate goal.
-6. Continue: if no stop condition applies, choose the next step and keep working. Completing Phase 1, closing a minimum loop, writing the next-phase recommendation, completing read-only analysis, or producing an analysis document is not a stopping reason; it is the trigger to enter the next phase or execute the highest-value safe finding.
+6. Continue: if no stop condition applies, choose the next step and keep working. Completing Phase 1, closing a minimum loop, writing the next-phase recommendation, completing read-only analysis, producing an analysis document, or advancing one small fix is not a stopping reason; it is the trigger to enter the next phase or execute the highest-value safe remaining item.
 
 4. Constraints
 - Keep edits surgical; do not do unrelated refactors, stack swaps, bulk formatting, or cleanup.
@@ -262,6 +262,7 @@ Deployment / release:
 | "Phase complete, so stop" | long-horizon goals die after 10 minutes | review the phase and immediately enter the next safe phase |
 | "Analysis report complete, so stop" | the project did not advance beyond diagnosis | pick the highest-value safe finding and execute it next |
 | "Read-only analysis complete, so stop" | the agent only described work instead of doing it | execute the safest high-value next step unless the goal explicitly says read-only only |
+| "One small fix complete, so stop" | long-horizon goals degrade into tiny tasks | validate the fix, update remaining gaps, and execute the next safe high-value item |
 | "No non-goals" | invites scope creep | list tempting exclusions |
 | "Validation: manual check" only | too weak when commands exist | use strongest safe validation level |
 | "Deploy if needed" | unauthorized external write | stop before deploy unless explicitly authorized |
@@ -278,6 +279,7 @@ Before returning a final goal, confirm:
 - Prompt explicitly says phase completion, minimum-loop completion, and next-phase suggestions are not stopping reasons.
 - Prompt explicitly says analysis reports, dev records, indexes, roadmaps, and codebase maps are intermediate artifacts, not stopping reasons.
 - Prompt explicitly says read-only analysis is only orientation unless the goal explicitly says read-only only.
+- Prompt explicitly says one small fix is not completion when safe high-value gaps remain.
 - Prompt treats commit/push/deploy/release as normal execution when the goal explicitly authorizes them and access exists.
 - Anything outside the prompt is no more than one sentence or 3 short evidence bullets.
 - Output does not include project ratings, long audit logs, graph/test/git command summaries, or old-style `Goal: [type]` documents.

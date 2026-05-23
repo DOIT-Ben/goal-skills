@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.1.8 - 2026-05-23
+
+- Clarified that completing one small fix is not completion when safe high-value gaps remain.
+- Required agents to validate each small fix, update the remaining gap list, and continue with the next safe high-value item.
+- Added eval coverage for the failure mode where a long-horizon goal stops after a minor Everything doctor recommendation update while broader gaps remain.
+
 ## 1.1.7 - 2026-05-23
 
 - Clarified that read-only whole-project analysis is orientation only, not completion, unless the generated goal explicitly says read-only only.
