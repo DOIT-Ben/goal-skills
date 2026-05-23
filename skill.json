@@ -1,8 +1,8 @@
 {
   "name": "goal-skills",
   "displayName": "Goal Skills",
-  "description": "A portable goal compiler for AI agents that turns the current conversation, project state, or product idea into an executable goal.",
-  "version": "1.1.1",
+  "description": "A portable long-horizon goal compiler for AI agents that turns the current conversation, project state, or product idea into a copy-pasteable autonomous execution prompt.",
+  "version": "1.1.7",
   "author": "DOIT-Ben",
   "license": "MIT",
   "homepage": "https://github.com/DOIT-Ben/goal-skills",

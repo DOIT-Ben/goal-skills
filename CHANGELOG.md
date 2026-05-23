@@ -1,5 +1,45 @@
 # Changelog
 
+## 1.1.7 - 2026-05-23
+
+- Clarified that read-only whole-project analysis is orientation only, not completion, unless the generated goal explicitly says read-only only.
+- Required agents to execute the safest highest-value next step they identify, instead of handing back a roadmap or "suggested minimum next step".
+- Added eval coverage for the failure mode where a long-horizon goal stops after read-only analysis with recommendations such as startup consistency or doctor warning fixes.
+
+## 1.1.6 - 2026-05-23
+
+- Clarified that analysis reports, dev records, roadmap documents, codebase maps, and index updates are intermediate artifacts, not completion.
+- Required agents to continue from analysis into the highest-value safe finding instead of stopping after documentation-only work.
+- Added eval coverage for the failure mode where a long-horizon goal stops after a first-round system analysis document.
+
+## 1.1.5 - 2026-05-23
+
+- Clarified that commit/push/deploy/release are normal continuation steps when the generated goal explicitly authorizes them and access exists.
+- Removed routine commit/push and authorized delivery writes from default stop conditions.
+- Reframed stop conditions around true blockers: actions outside the goal, destructive or irreversible operations, credential handling, unauthorized external writes, scope conflicts, or repeated validation failure.
+- Added eval coverage for the failure mode where an agent stops before authorized commit/push instead of executing the goal.
+
+## 1.1.4 - 2026-05-23
+
+- Removed "phase complete" as a stop signal. Completion of Phase 1, a minimum loop, or a next-phase recommendation now triggers continuation, not termination.
+- Clarified that only real blockers, safety issues, missing judgment, or explicit user-authorized handoffs can stop a long-horizon goal.
+- Added eval coverage for the "10 minutes and stop" failure mode where the goal incorrectly ends after a minimum closed loop.
+
+## 1.1.3 - 2026-05-23
+
+- Tightened output rules so `$goal-skills 分析整个项目` produces a copy-pasteable long-horizon prompt instead of a long project audit report.
+- Added an explicit output contract: at most one sentence or 3 short evidence bullets outside the prompt.
+- Added orientation-pass guidance: inspect just enough project evidence to shape the prompt, and put deep graph/test/browser/audit work inside the generated prompt.
+- Added anti-patterns and eval coverage for overlong audit-style outputs with graph/test/git logs and project ratings.
+
+## 1.1.2 - 2026-05-23
+
+- Reframed final output from a short executable goal document into a copy-pasteable long-horizon autonomous execution prompt.
+- Added required prompt opening patterns: Chinese prompts begin with `现在给你一个目标：...`; English prompts begin with `I am giving you a goal: ...`.
+- Added explicit "do not stop until complete" behavior while preserving stop conditions for destructive, credential, global, external-write, deployment, commit/push, and database actions.
+- Added long-term execution map requirements covering project ultimate purpose, current stage, near-term goals, mid-term direction, long-term possibilities, and non-goals.
+- Updated templates, README files, metadata, and eval coverage for long-running project-purpose analysis.
+
 ## 1.1.1 - 2026-05-22
 
 - Repositioned the package from Codex-centered wording to a portable goal compiler for all AI agents.

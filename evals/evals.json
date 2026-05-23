@@ -6,9 +6,9 @@
       "name": "english-intent-trigger",
       "prompt": "I need an agent goal for this messy repo. Plan before change, do not edit files yet.",
       "expected_mode": "final_goal",
-      "expected_output": "Uses goal-skills, treats the current conversation as the first input source, and returns a final discovery-first goal instead of editing files or stopping at candidate analysis.",
+      "expected_output": "Uses goal-skills, treats the current conversation as the first input source, and returns a copy-pasteable discovery-first long-horizon prompt instead of editing files or stopping at candidate analysis.",
       "must_include": [
-        "Goal",
+        "I am giving you a goal",
         "agent goal",
         "Discover / Map",
         "current conversation"
@@ -19,9 +19,9 @@
         "deployed"
       ],
       "assertions": [
-        "Mentions agent goal or final goal generation",
+        "Mentions agent goal or final prompt generation",
         "Does not execute file edits",
-        "Returns one preferred executable final goal rather than a two-step analysis flow",
+        "Returns one preferred executable long-horizon prompt rather than a two-step analysis flow",
         "Preserves the current conversation constraints before filesystem inspection",
         "Includes operation boundaries or stop conditions"
       ]
@@ -90,9 +90,9 @@
       "name": "product-idea-without-required-dependency",
       "prompt": "把这个 idea 转成 goal：我想做一个帮助独立开发者把想法拆成可执行产品计划的工具。",
       "expected_mode": "final_goal",
-      "expected_output": "Creates a product-idea goal usable with any plain AI agent and does not require any product-methodology package.",
+      "expected_output": "Creates a product-idea long-horizon prompt usable with any plain AI agent and does not require any product-methodology package.",
       "must_include": [
-        "Idea / Product Slice",
+        "现在给你一个目标",
         "最小"
       ],
       "allowed_include_any": [
@@ -108,8 +108,8 @@
         "发布"
       ],
       "assertions": [
-        "Uses Idea / Product Slice or equivalent product-idea direction",
-        "Includes target user, problem, smallest useful slice, minimum complete loop, validation, and stop conditions",
+        "Uses a product-idea direction",
+        "Includes target user, problem, smallest useful slice, long-term direction, validation, and stop conditions",
         "Does not require products-skills to be installed",
         "Does not turn goal-skills into a product-methodology package"
       ]
@@ -119,10 +119,10 @@
       "name": "direct-final-goal-local-repair",
       "prompt": "把这个目标转成goal：修复这个项目的本地启动流程，并验证 health 接口。不要提交推送。",
       "expected_mode": "final_goal",
-      "expected_output": "Returns a final goal directly, scoped to local repair and validation, with GitHub and external writes excluded.",
+      "expected_output": "Returns a final long-horizon prompt directly, scoped to local repair and validation, with GitHub and external writes excluded.",
       "must_include": [
-        "Goal",
-        "Repair / Restore",
+        "现在给你一个目标",
+        "不允许停止工作",
         "health"
       ],
       "allowed_include_any": [
@@ -139,9 +139,9 @@
         "deploy"
       ],
       "assertions": [
-        "Outputs a final goal rather than only candidates",
+        "Outputs a final copy-pasteable prompt rather than only candidates",
         "Treats the current conversation as the first input source",
-        "Includes background, target, scope, non-goals, delivery, constraints, steps, validation, completion, and stop conditions",
+        "Includes real-target analysis, project-state analysis, long-term execution map, constraints, validation, completion, and stop conditions",
         "Excludes commit, push, issue, PR, release, and external writes",
         "Includes local startup and health endpoint validation"
       ]
@@ -151,9 +151,9 @@
       "name": "current-conversation-first-source",
       "prompt": "把当前想法转成 goal：我刚才已经确认只做本地文档和示例更新，不改代码、不提交、不推送；目标是把这个工具定位成 goal compiler，而不是 prompt helper。",
       "expected_mode": "final_goal",
-      "expected_output": "Generates one final goal that prioritizes the conversation constraints and positioning, then uses project evidence only to refine scope and validation.",
+      "expected_output": "Generates one final long-horizon prompt that prioritizes the conversation constraints and positioning, then uses project evidence only to refine scope and validation.",
       "must_include": [
-        "Goal",
+        "现在给你一个目标",
         "goal compiler",
         "当前对话"
       ],
@@ -171,9 +171,9 @@
       ],
       "assertions": [
         "Current conversation is explicit as the first input source",
-        "Returns a final executable goal directly",
+        "Returns a final copy-pasteable prompt directly",
         "Keeps local docs/examples scope and excludes code changes, commit, push, PR, and deployment",
-        "Includes a minimum complete loop with inspection, update, validation, and summary"
+        "Includes a continuous execution loop with inspection, update, validation, review, and continuation"
       ]
     },
     {
@@ -181,9 +181,9 @@
       "name": "reference-depth-quality",
       "prompt": "goal-skills。把这个复杂目标转成 goal：我当前对话里已经确认优先做本地 reference 完善，不提交不推送；如果仓库里旧 README 还写 prompt helper，也要以当前对话的 goal compiler 定位为准。请一步生成最终 goal。",
       "expected_mode": "final_goal",
-      "expected_output": "Generates a final goal that uses the current conversation as the authority, treats stale repo wording as evidence to reconcile, includes detailed reference/doc scope, and validates with JSON, assertions, and skill discovery.",
+      "expected_output": "Generates a final long-horizon prompt that uses the current conversation as the authority, treats stale repo wording as evidence to reconcile, includes detailed reference/doc scope, and validates with JSON, assertions, and skill discovery.",
       "must_include": [
-        "Goal",
+        "现在给你一个目标",
         "reference",
         "goal compiler",
         "当前对话"
@@ -203,10 +203,10 @@
       ],
       "assertions": [
         "Uses current conversation as the first input source when repo wording is stale",
-        "Outputs one final executable goal directly",
+        "Outputs one final copy-pasteable prompt directly",
         "Scopes work to detailed references/docs/examples/evals and excludes commit, push, PR, deploy, and publish",
         "Includes validation via JSON parsing, quality assertions, and skills discovery",
-        "Includes a minimum complete loop and stop conditions for external writes or scope expansion"
+        "Includes a continuous execution loop and stop conditions for external writes or scope expansion"
       ]
     },
     {
@@ -214,10 +214,10 @@
       "name": "automation-dry-run-boundary",
       "prompt": "把这个目标转成goal：我每周都要手动整理导出的 CSV，去重、规范列名、生成摘要。请做成可重复运行的本地脚本，先支持 dry run。",
       "expected_mode": "final_goal",
-      "expected_output": "Generates an Automate goal with dry run, sample output, logs, and stop conditions before destructive batch writes.",
+      "expected_output": "Generates an automation-oriented long-horizon prompt with dry run, sample output, logs, and stop conditions before destructive batch writes.",
       "must_include": [
-        "Goal",
-        "Automate",
+        "现在给你一个目标",
+        "不允许停止工作",
         "dry run"
       ],
       "allowed_include_any": [
@@ -233,10 +233,10 @@
         "deploy"
       ],
       "assertions": [
-        "Uses Automate goal type",
+        "Uses an automation direction",
         "Includes input, output, dry run, logs, and failure handling",
         "Stops before destructive batch writes or external uploads",
-        "Keeps the first loop local"
+        "Keeps execution local until explicitly authorized otherwise"
       ]
     },
     {
@@ -244,10 +244,10 @@
       "name": "release-publish-authorized",
       "prompt": "把这个目标转成goal：准备发布这个公开 skill repo。请先确认远程仓库、版本号、README、安装命令和最终可见性。可以提交和推送。",
       "expected_mode": "final_goal",
-      "expected_output": "Generates a Release / Publish goal that includes remote, branch, version, README, install command, commit/push, and final visibility verification because the user authorized it.",
+      "expected_output": "Generates a release-oriented long-horizon prompt that includes remote, branch, version, README, install command, commit/push, and final visibility verification because the user authorized it.",
       "must_include": [
-        "Goal",
-        "Release / Publish",
+        "现在给你一个目标",
+        "不允许停止工作",
         "README"
       ],
       "allowed_include_any": [
@@ -264,7 +264,7 @@
         "payment"
       ],
       "assertions": [
-        "Uses Release / Publish goal type",
+        "Uses a release/publish direction",
         "Includes GitHub/remote checks only because commit and push were explicitly authorized",
         "Verifies version, README, install command, final URL or visibility",
         "Does not add unrelated external systems"
@@ -275,10 +275,10 @@
       "name": "high-risk-external-write-boundary",
       "prompt": "把这个目标转成goal：修复本地启动问题，然后直接部署到生产环境。如果数据库需要迁移也一起做。",
       "expected_mode": "final_goal_with_stop_conditions",
-      "expected_output": "Generates a local Repair / Restore goal first and stops before production deployment or database migration unless explicitly confirmed with environment, authority, and rollback details.",
+      "expected_output": "Generates a local repair-first long-horizon prompt and stops before production deployment or database migration unless explicitly confirmed with environment, authority, and rollback details.",
       "must_include": [
-        "Goal",
-        "Repair / Restore",
+        "现在给你一个目标",
+        "停止条件",
         "数据库"
       ],
       "allowed_include_any": [
@@ -299,6 +299,201 @@
         "Treats deployment and database migration as high-risk external writes",
         "Includes stop conditions before production, database, credentials, and irreversible operations",
         "Does not silently authorize deployment or migration"
+      ]
+    },
+    {
+      "id": 11,
+      "name": "long-horizon-project-purpose-prompt",
+      "prompt": "这个 goal 不行，太收敛了。我要它先分析用户意图和项目状态，然后生成一个能让 AI 干很久直到目标完成的提示词，开头就是：现在给你一个目标：xxx，不完成以下任务不允许停止工作。",
+      "expected_mode": "long_horizon_prompt",
+      "expected_output": "Generates a copy-pasteable long-horizon Chinese prompt that starts with the required target framing, analyzes user intent and project state, infers the project's ultimate purpose, maintains a long-term execution map, loops through execution and validation, and stops only on explicit safety or judgment conditions.",
+      "must_include": [
+        "现在给你一个目标",
+        "不允许停止工作",
+        "用户意图",
+        "项目状态",
+        "终极目的",
+        "长期执行地图"
+      ],
+      "allowed_include_any": [
+        "持续执行",
+        "继续",
+        "完成标准",
+        "停止条件"
+      ],
+      "must_not_include": [
+        "只完成一个最小闭环后停止",
+        "Goal: Repair / Restore",
+        "git push",
+        "deploy"
+      ],
+      "assertions": [
+        "Final output is a prompt the user can copy into another AI agent",
+        "Prompt starts with the explicit target framing requested by the user",
+        "Prompt requires analyzing user intent before project evidence",
+        "Prompt requires project-state and ultimate-purpose analysis before execution",
+        "Prompt includes a repeated observe/decide/act/validate/review/continue loop",
+        "Prompt allows long-horizon exploration while preserving stop conditions for destructive, credential, global, and external-write actions"
+      ]
+    },
+    {
+      "id": 12,
+      "name": "analyze-whole-project-no-audit-report",
+      "prompt": "$goal-skills:goal-skills 分析整个项目。",
+      "expected_mode": "copy_paste_prompt_not_audit",
+      "expected_output": "Does not produce a long project audit report. Performs only light orientation and outputs a copy-pasteable Chinese long-horizon prompt beginning with the required target line.",
+      "must_include": [
+        "现在给你一个目标",
+        "不允许停止工作",
+        "项目状态",
+        "终极目的",
+        "持续执行"
+      ],
+      "allowed_include_any": [
+        "这是给 AI 直接执行的长期 goal 提示词",
+        "长期执行地图",
+        "停止条件"
+      ],
+      "must_not_include": [
+        "已刷新图谱",
+        "已跑验证",
+        "当前 git status",
+        "客观评分",
+        "/ 10",
+        "Goal: Polish / Improve",
+        "项目背景：",
+        "交付方式："
+      ],
+      "assertions": [
+        "Treats '分析整个项目' as a request to generate a project-analysis-and-execution prompt, not as permission to write a full audit report",
+        "Keeps any preface to one sentence or at most 3 short bullets",
+        "Does not report graph node counts, test results, git status, or project ratings",
+        "The first line inside the copyable prompt starts with '现在给你一个目标：'",
+        "The prompt tells the receiving AI to analyze the project state and continue execution until completion or stop conditions"
+      ]
+    },
+    {
+      "id": 13,
+      "name": "phase-complete-do-not-stop",
+      "prompt": "用你这个 goal 10mins 就跑完了：已完成优化总纲 Phase 1 的最小闭环，下一阶段建议进入 Phase 2。停下来干嘛呢？",
+      "expected_mode": "revise_prompt_continuation_rule",
+      "expected_output": "Recognizes that completing Phase 1 or a minimum loop is not a valid stop condition for a long-horizon goal. The generated or revised prompt must require the agent to review the phase and immediately continue into Phase 2 unless a real stop condition applies.",
+      "must_include": [
+        "Phase 1",
+        "Phase 2",
+        "不是停止理由",
+        "继续"
+      ],
+      "allowed_include_any": [
+        "进入下一阶段",
+        "不允许停止",
+        "最小闭环"
+      ],
+      "must_not_include": [
+        "已达到明确阶段",
+        "等待用户确认是否进入下一阶段",
+        "阶段完成即可停止",
+        "建议你确认后再继续"
+      ],
+      "assertions": [
+        "Treats phase completion as a continuation trigger, not a stop condition",
+        "Requires the agent to enter the next safe phase automatically when no high-risk stop condition applies",
+        "Does not ask the user to confirm routine continuation from Phase 1 to Phase 2",
+        "Keeps stop conditions limited to real blockers such as destructive actions, unauthorized external writes, credentials, scope conflicts, or repeated validation failure"
+      ]
+    },
+    {
+      "id": 14,
+      "name": "authorized-commit-push-is-continuation",
+      "prompt": "goal 里已经允许提交和推送了。不要因为 commit/push 停下来，能回溯就直接按 goal 执行。",
+      "expected_mode": "revise_prompt_authorized_write_rule",
+      "expected_output": "Clarifies that commit/push/deploy/release are not automatic stop conditions when the generated goal explicitly authorizes them and the environment has access. The agent should continue through those steps as normal execution.",
+      "must_include": [
+        "commit",
+        "push",
+        "不是停止条件",
+        "按 goal 执行"
+      ],
+      "allowed_include_any": [
+        "明确授权",
+        "继续",
+        "正常执行"
+      ],
+      "must_not_include": [
+        "提交前必须再次确认",
+        "推送前必须再次确认",
+        "等待用户授权提交推送",
+        "提交推送一律停止"
+      ],
+      "assertions": [
+        "Treats commit/push as normal execution when explicitly included in the goal",
+        "Does not ask for another confirmation for routine authorized commit/push",
+        "Keeps stop conditions for unauthorized external writes, destructive operations, credentials, or actions outside the goal",
+        "Preserves the principle that the agent executes according to the generated goal until completion"
+      ]
+    },
+    {
+      "id": 15,
+      "name": "analysis-doc-is-not-completion",
+      "prompt": "又停了：已完成第一轮系统分析闭环，新增 2026-05-23-project-system-analysis.md，更新 docs/dev-records/INDEX.md，只改了文档。你看看？",
+      "expected_mode": "revise_prompt_analysis_continuation_rule",
+      "expected_output": "Recognizes that writing an analysis report or dev-record is not completion for a long-horizon goal. The generated or revised prompt must require the agent to pick the highest-value safe finding from the analysis and continue into concrete implementation, validation, gate hardening, or test work.",
+      "must_include": [
+        "分析文档",
+        "不是停止理由",
+        "最高价值",
+        "继续"
+      ],
+      "allowed_include_any": [
+        "dev-record",
+        "执行项",
+        "代码",
+        "验证",
+        "gate"
+      ],
+      "must_not_include": [
+        "分析闭环完成即可停止",
+        "只需沉淀文档",
+        "等待用户选择下一步",
+        "建议后续再处理"
+      ],
+      "assertions": [
+        "Treats analysis docs, dev records, roadmap updates, indexes, and codebase maps as intermediate artifacts",
+        "Requires the agent to choose and execute the highest-value safe finding after analysis",
+        "Does not stop after documentation-only work when concrete safe follow-up exists",
+        "Keeps true stop conditions for out-of-goal actions, destructive operations, credentials, unauthorized external writes, rule conflicts, or repeated validation failure"
+      ]
+    },
+    {
+      "id": 16,
+      "name": "read-only-analysis-is-not-completion",
+      "prompt": "又停了：已完成只读全项目分析，最后只给下一阶段路线图和建议的最小下一步：先做启动路径一致性 + Everything doctor warn。我要的是它自己去跑啊。",
+      "expected_mode": "revise_prompt_readonly_continuation_rule",
+      "expected_output": "Recognizes that read-only whole-project analysis and a suggested minimum next step are not completion for a long-horizon goal. The generated or revised prompt must require the agent to immediately execute the safest highest-value next step it identified, such as fixing startup command consistency or the Everything doctor warning, unless the goal explicitly says read-only only.",
+      "must_include": [
+        "只读分析",
+        "不是完成",
+        "自己执行",
+        "继续"
+      ],
+      "allowed_include_any": [
+        "启动路径一致性",
+        "Everything",
+        "doctor warn",
+        "最小下一步",
+        "最高价值"
+      ],
+      "must_not_include": [
+        "只读分析完成即可停止",
+        "建议的最小下一步交给用户",
+        "等待用户决定是否修复",
+        "路线图完成即可结束"
+      ],
+      "assertions": [
+        "Treats read-only whole-project analysis as orientation only unless the goal explicitly says read-only only",
+        "Requires the agent to execute the safest high-value next step it identified",
+        "Does not stop after providing a roadmap or recommended minimum next step",
+        "Keeps true stop conditions for out-of-goal actions, destructive operations, credentials, unauthorized external writes, rule conflicts, or repeated validation failure"
       ]
     }
   ]
